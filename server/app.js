@@ -25,4 +25,9 @@ app.use(cookieParser());
 app.use('/api/v1/session', sessionRoutes);
 app.use('/api/v1/user', userRoutes);
 
+// app.use((error, req, res, next) => {
+//   // console.log(error);
+//   res.status(500).json({ message: error.message });
+// });
+
 module.exports = app;

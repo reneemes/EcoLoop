@@ -15,7 +15,7 @@ describe('Session Controller - Check Session', () => {
   describe('Happy Path', () => {
     const user = {
       id: 1,
-      username: 'new-user',
+      username: 'test-user',
       email: 'user@email.com',
       role: 0
     };
@@ -26,7 +26,7 @@ describe('Session Controller - Check Session', () => {
       req.user = { userId: 1 };
 
       SessionService.show.mockResolvedValue({
-        user: { id: 1, username: 'new-user', email: 'user@email.com', role: 0 }
+        user: { id: 1, username: 'test-user', email: 'user@email.com', role: 0 }
       });
     });
 
@@ -50,7 +50,7 @@ describe('Session Controller - Check Session', () => {
       SessionService.show.mockResolvedValue(user);
       await SessionController.checkSession(req, res);
       expect(res._getJSONData()).toStrictEqual({
-        user: { id: 1, username: 'new-user', email: 'user@email.com', role: 0 }
+        user: { id: 1, username: 'test-user', email: 'user@email.com', role: 0 }
       });
     });
   });
@@ -102,7 +102,7 @@ describe('Session Controller - Create Session', () => {
 
       SessionService.create.mockResolvedValue({
         token: 'fakeToken',
-        user: { id: 1, username: 'new-user' }
+        user: { id: 1, username: 'test-user' }
       });
     });
 
