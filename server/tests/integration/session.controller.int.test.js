@@ -5,6 +5,20 @@ const userLogin = require('../mock-data/new-user-session.json');
 const endpointUrl = '/api/v1/session';
 
 describe(endpointUrl, () => {
+  it('GET ' + endpointUrl, async () => {
+    user = { userId: '3' };
+    const response = await request(app)
+      .get(endpointUrl)
+      .send(user);
+
+    expect(response.statusCode).toBe(200);
+    // expect(response.body.message).toBe('Sign in successful');
+    // expect(response.body.user.username).toBe(userLogin.username);
+    // expect(response.body.user.email).toBe(userLogin.email);
+  });
+})
+
+describe(endpointUrl, () => {
   it('POST ' + endpointUrl, async () => {
     const response = await request(app)
       .post(endpointUrl)
