@@ -2,6 +2,31 @@ const connection = require('../db.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+async function show(userId) {
+  const [result] = await connection.promise().query(
+    `SELECT id, first_name, last_name, email, streak, level, experience_points
+    FROM users
+    WHERE id = ?`,
+    [userId]
+  );
+
+  if (result.length === 0) {
+    throw new Error("User not found");
+  }
+
+  const user = result[0];
+
+  return {
+    id: user.id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    streak: user.streak,
+    level: user.level,
+    experience_points: user.experience_points,
+  }
+}
+
 async function create(username, password) {
   const [result] = await connection.promise().query(
     `SELECT id, username, email, password, role
@@ -40,6 +65,6 @@ async function create(username, password) {
 }
 
 module.exports = {
-  // show,
+  show,
   create
 };
