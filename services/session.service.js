@@ -1,10 +1,12 @@
-const connection = require('../db.js');
+const createConnection = require('../db.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 async function show(userId) {
-  const [result] = await connection.promise().query(
-    `SELECT id, first_name, last_name, email, streak, level, experience_points
+  const db = await createConnection();
+
+  const [result] = await db.promise().query(
+    `SELECT id, username, email, role
     FROM users
     WHERE id = ?`,
     [userId]
@@ -18,17 +20,15 @@ async function show(userId) {
 
   return {
     id: user.id,
-    first_name: user.first_name,
-    last_name: user.last_name,
+    username: user.username,
     email: user.email,
-    streak: user.streak,
-    level: user.level,
-    experience_points: user.experience_points,
   }
 }
 
 async function create(username, password) {
-  const [result] = await connection.promise().query(
+  const db = await createConnection();
+
+  const [result] = await db.promise().query(
     `SELECT id, username, email, password, role
     FROM users
     WHERE LOWER(username) = LOWER(?);`,
