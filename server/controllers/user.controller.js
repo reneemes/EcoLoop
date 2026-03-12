@@ -1,9 +1,9 @@
 const userService = require('../services/user.service.js');
 
 async function createUser(req, res) {
-  const { username, first_name, last_name, password, email } = req.body;
+  const { username, password, email } = req.body;
 
-  if (!username || !first_name || !last_name || !password || !email) {
+  if (!username || !password || !email) {
     return res.status(422).json({
       message: 'All fields are required',
     });
@@ -12,8 +12,6 @@ async function createUser(req, res) {
   try {
     const result = await userService.create(
       username,
-      first_name,
-      last_name,
       password,
       email
     );
