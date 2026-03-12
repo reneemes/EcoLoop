@@ -44,6 +44,7 @@ async function createSession(req, res) {
     res.status(401).json({
       message: error.message,
     });
+    // next(error);
   }
 };
 
