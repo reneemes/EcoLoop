@@ -2,15 +2,19 @@ const sessionService = require('../services/session.service.js');
 
 async function checkSession(req, res) {
   try {
-    const user = await sessionService.show(req.user.userId);
-
-    if (!user) {
+    if (!req.user || !req.user.userId) {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
-    res.json({ user });
+    const user = await sessionService.show(req.user.userId);
+
+    if (!user) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
+
+    res.status(200).json({ user });
   } catch (err) {
-    res.status(500).json({ message: "Failed to fetch user" });
+    res.status(500).json({ message: 'Failed to fetch user' });
   }
 }
 
@@ -40,6 +44,7 @@ async function createSession(req, res) {
     res.status(401).json({
       message: error.message,
     });
+    // next(error);
   }
 };
 
