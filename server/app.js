@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 // Import route files
 const sessionRoutes = require('./routes/session.routes.js');
 const userRoutes = require('./routes/user.routes.js');
+const chatRoutes = require('./routes/chat.routes.js');
 
 // create an express application
 const app = express();
@@ -24,5 +25,6 @@ app.use(cookieParser());
 
 app.use('/api/v1/session', sessionRoutes);
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/chat', chatRoutes);
 
 module.exports = app;
