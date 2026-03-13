@@ -1,6 +1,5 @@
 const request = require('supertest');
 const app = require('../../app');
-const expectCookies = require('supertest/lib/cookies');
 
 const endpointUrl = '/api/v1/user';
 
