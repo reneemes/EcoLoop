@@ -10,7 +10,6 @@ async function createResponse(req, res) {
 
     res.status(201).json(response);
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: 'Failed to generate a response' });
   }
 }
