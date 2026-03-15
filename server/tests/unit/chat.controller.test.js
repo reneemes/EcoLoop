@@ -17,12 +17,12 @@ describe('Chat Controller - Create Response', () => {
       
       jest.clearAllMocks();
 
-      ChatService.create.mockResolvedValue(`
-        Soda bottles can be recycled, whether they are made of plastic or glass. 
-        Just make sure to empty any leftover liquid and give the bottle a quick 
-        rinse before tossing it in your bin. Keeping bottles clean and empty 
-        ensures they can be easily melted down and turned into brand-new containers!
-      `);
+      // ChatService.create.mockResolvedValue(`
+      //   Soda bottles can be recycled, whether they are made of plastic or glass. 
+      //   Just make sure to empty any leftover liquid and give the bottle a quick 
+      //   rinse before tossing it in your bin. Keeping bottles clean and empty 
+      //   ensures they can be easily melted down and turned into brand-new containers!
+      // `);
     });
     
     it('should have a createResponse function', () => {
