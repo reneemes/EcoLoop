@@ -6,6 +6,7 @@ function formatPrompt(user_input) {
     2. Practical tips or exceptions (e.g., greasy, dirty, mixed materials, labels, caps).
     3. A short explanation of why that method is recommended.
     4. Keep it concise (2-4 sentences) and easy to understand for someone who is new to recycling.
+    5. Keep the character count to be 500 or under.
 
     Examples:
 
