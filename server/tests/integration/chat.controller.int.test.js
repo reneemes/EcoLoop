@@ -1,24 +1,13 @@
 const request = require('supertest');
 const app = require('../../app');
+const { GoogleGenAI } = require("@google/genai");
+const ChatService = require('../../services/chat.service');
 
 const endpointUrl = '/api/v1/chat';
 
 let mockUser = { userId: 3 };
 
-// jest.mock('@google/genai', () => {
-//   return {
-//     GoogleGenAI: jest.fn().mockImplementation(() => {
-//       return {
-//         models: {
-//           generateContent: jest.fn().mockResolvedValue({
-//             text: () => 'Mock AI response'
-//           })
-//         }
-//       };
-//     })
-//   };
-// });
-
+jest.mock('@google/genai');
 jest.mock('../../middleware/auth', () => {
   return (req, res, next) => {
     req.user = mockUser;
@@ -27,19 +16,24 @@ jest.mock('../../middleware/auth', () => {
 });
 
 describe(endpointUrl, () => {
-
-  // ------------------------------
-  // CREATE RESPONSE
-  // ------------------------------
   it('POST ' + endpointUrl, async () => {
     mockUser = { userId: 3 };
+    const mockResponse = 'mock response';
+
+    GoogleGenAI.mockImplementation(() => ({
+      models: {
+        generateContent: jest.fn().mockResolvedValue({
+          text: mockResponse
+        })
+      }
+    }));
 
     const response = await request(app)
       .post(endpointUrl)
       .send({ item: 'soda bottle' });
 
     expect(response.statusCode).toBe(201);
-  expect(response.body).toBe('Mock AI response');
+    expect(response.body).toBe(mockResponse);
   });
 
   it('should return 400 if item is missing', async () => {
@@ -60,7 +54,6 @@ describe(endpointUrl, () => {
 
     const response = await request(app)
       .post(endpointUrl)
-      .send({ item: 'trigger-error' });
 
     expect(response.statusCode).toBe(500);
     expect(response.body).toStrictEqual({
@@ -121,12 +114,12 @@ describe(endpointUrl + '/save', () => {
 });
 
 describe(endpointUrl, () => {
-
-  // ------------------------------
-  // DELETE RESPONSE
-  // ------------------------------
   it('DELETE ' + endpointUrl, async () => {
     mockUser = { userId: 3 };
+
+    jest.spyOn(ChatService, 'destroy').mockResolvedValue({
+      affectedRows: 1
+    });
 
     const response = await request(app)
       .delete(endpointUrl)
@@ -151,6 +144,10 @@ describe(endpointUrl, () => {
   it('should return 404 if search history does not exist', async () => {
     mockUser = { userId: 3 };
 
+    jest.spyOn(ChatService, 'destroy').mockResolvedValue({
+      affectedRows: 0
+    });
+
     const response = await request(app)
       .delete(endpointUrl)
       .send({ id: 999999 });
@@ -164,13 +161,17 @@ describe(endpointUrl, () => {
   it('should return 500 if deletion fails', async () => {
     mockUser = { userId: 99999 };
 
+    jest.spyOn(ChatService, 'destroy').mockRejectedValue(
+      new Error('DB failure')
+    );
+
     const response = await request(app)
       .delete(endpointUrl)
       .send({ id: 1 });
 
     expect(response.statusCode).toBe(500);
     expect(response.body).toStrictEqual({
-      message: 'failed to delete database entry'
+      message: 'Failed to delete database entry'
     });
   });
 
