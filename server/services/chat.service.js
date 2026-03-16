@@ -24,11 +24,24 @@ async function save(userId, keyword, chat) {
     VALUES (?, ?, ?);`,
     [userId, keyword, chat]
   );
-  console.log('result: ', result);
   return result[0];
+}
+
+async function destroy(id, userId) {
+  const db = await createConnection();
+
+  const [result] = await db.promise().query(
+    `DELETE FROM search_history
+    WHERE id = ?
+      AND user_id = ?`,
+    [id, userId]
+  );
+
+  return result;
 }
 
 module.exports = {
   create,
   save,
+  destroy,
 }
