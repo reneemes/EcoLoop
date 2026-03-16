@@ -27,12 +27,34 @@ async function saveResponse(req, res) {
       response
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: 'failed to save to database' });
+  }
+}
+
+async function deleteResponse(req, res) {
+  try {
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    
+    const userId = req.user.userId;
+    const { id } = req.body;
+    
+    const response = await chatService.destroy(id, userId);
+
+    if (!response.affectedRows) {
+      res.status(404).json({ message: '' });
+    }
+    console.log(response);
+    res.status(204);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'failed to delete database entry' });
   }
 }
 
 module.exports = {
   createResponse,
   saveResponse,
+  deleteResponse,
 }
