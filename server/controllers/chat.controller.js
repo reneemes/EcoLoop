@@ -5,12 +5,20 @@ async function createResponse(req, res) {
   try {
     const { item } = req.body;
 
+    if (!item) {
+      return res.status(400).json({ message: 'Missing required field: item' });
+    }
+
     const prompt = formatPrompt(item);
     const response = await chatService.create(prompt);
 
-    res.status(201).json(response);
+    if (!response) {
+      return res.status(500).json({ message: 'No response generated' });
+    }
+
+    return res.status(201).json(response);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to generate a response' });
+    return res.status(500).json({ message: 'Failed to generate a response' });
   }
 }
 

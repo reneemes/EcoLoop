@@ -10,14 +10,14 @@ describe('Chat Controller - Create Response', () => {
   let req, res;
   describe('Happy Path', () => {
     beforeEach(() => {
-      req = httpMocks.createRequest();
+      req = httpMocks.createRequest({
+        body: {item: 'soda bottle'}
+      });
       res = httpMocks.createResponse();
       
       jest.clearAllMocks();
-    
     });
 
-    
     it('should have a createResponse function', () => {
       expect(typeof ChatController.createResponse).toBe('function');
     });
@@ -29,37 +29,63 @@ describe('Chat Controller - Create Response', () => {
     });
 
     it('should return a 201 response code', async () => {
+      ChatService.create.mockResolvedValue('mock response');
       await ChatController.createResponse(req, res);
       expect(res.statusCode).toBe(201);
-      expect(res._isEndCalled()).toBeTruthy();
+      expect(res._getJSONData()).toStrictEqual('mock response');
     })
+    
+    it('should return an answer to the prompt', async () => {
+      ChatService.create.mockResolvedValue('mock response');
+      await ChatController.createResponse(req, res);
+      expect(res._getJSONData()).toStrictEqual('mock response');
+    });
   });
-
-  // it('should return a answer to the prompt', async () => {
-  //   {item: 'soda bottle'}
-  //   ChatService.create.mockResolvedValue();
-  //   await ChatController.createResponse(req, res);
-  //   expect(res._getJSONData()).toStrictEqual({
-  //     user: { id: 1, username: 'test-user', email: 'user@email.com', role: 0 }
-  //   });
-  // });
 
   describe('Sad Path',  () => {
 
     beforeEach(() => {
       req = httpMocks.createRequest();
       res = httpMocks.createResponse();
+
+      jest.clearAllMocks();
     });
 
     it('should return a 500 for server errors', async () => {
-      const errorMessage = 'Server error';
-      ChatService.create.mockRejectedValue(new Error(errorMessage));
+      req.body = { item: 'soda bottle' };
+      ChatService.create.mockRejectedValue(new Error('Server error'));
 
       await ChatController.createResponse(req, res);
 
       expect(res.statusCode).toBe(500);
-      expect(res._getJSONData()).toStrictEqual({ message: 'Failed to generate a response' });
+      expect(res._getJSONData()).toStrictEqual({
+        message: 'Failed to generate a response'
+      });
     });
+
+    it('should return 400 if item is missing', async () => {
+    req.body = {};
+
+    await ChatController.createResponse(req, res);
+
+    expect(res.statusCode).toBe(400);
+    expect(res._getJSONData()).toStrictEqual({
+      message: 'Missing required field: item'
+    });
+  });
+
+  it('should return 500 if service returns nothing', async () => {
+    req.body = { item: 'soda bottle' };
+    ChatService.create.mockResolvedValue(undefined);
+
+    await ChatController.createResponse(req, res);
+
+    expect(res.statusCode).toBe(500);
+    expect(res._getJSONData()).toStrictEqual({
+      message: 'No response generated'
+    });
+  });
+
   });
 })
 
@@ -69,7 +95,7 @@ describe('Chat Controller - Save Response', () => {
 
     beforeEach(() => {
       req = httpMocks.createRequest({
-        user: { userId },   // ✅ mock authenticated user
+        user: { userId },
         body: {
           item: 'soda bottle',
           chat: 'generated response'
@@ -136,7 +162,7 @@ describe('Chat Controller - Save Response', () => {
 
     it('should handle missing body fields', async () => {
       req.user = { userId: '99' };
-      req.body = {}; // missing item + chat
+      req.body = {};
 
       ChatService.save.mockRejectedValue(new Error('Invalid data'));
 
@@ -203,7 +229,7 @@ describe('Chat Controller - Delete Response', () => {
     });
 
     it('should return 401 if the user is not authenticated', async () => {
-      req.body = { id: 123 }; // no req.user
+      req.body = { id: 123 };
 
       await ChatController.deleteResponse(req, res);
 
@@ -245,7 +271,7 @@ describe('Chat Controller - Delete Response', () => {
 
     it('should return 404 if no id is provided in the body', async () => {
       req.user = { userId: '99' };
-      req.body = {}; // missing id
+      req.body = {};
 
       ChatService.destroy.mockResolvedValue({ affectedRows: 0 });
 
