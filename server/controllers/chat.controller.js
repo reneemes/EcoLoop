@@ -58,7 +58,7 @@ async function deleteResponse(req, res) {
     }
     return res.status(204).end();
   } catch (error) {
-    return res.status(500).json({ message: 'failed to delete database entry' });
+    return res.status(500).json({ message: 'Failed to delete database entry' });
   }
 }
 
