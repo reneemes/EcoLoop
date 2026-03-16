@@ -265,7 +265,7 @@ describe('Chat Controller - Delete Response', () => {
       expect(ChatService.destroy).toHaveBeenCalledWith(123, '99');
       expect(res.statusCode).toBe(500);
       expect(res._getJSONData()).toStrictEqual({
-        message: 'failed to delete database entry'
+        message: 'Failed to delete database entry'
       });
     });
 
