@@ -15,19 +15,22 @@ async function createResponse(req, res) {
 }
 
 async function saveResponse(req, res) {
-  const userId = req.user.userId;
-
   try {
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    
+    const userId = req.user.userId;
     const { item, chat } = req.body;
 
     const response = await chatService.save(userId, item, chat);
 
-    res.status(201).json({
+    return res.status(201).json({
       message: 'Search history saved',
       response
     });
   } catch (error) {
-    res.status(500).json({ message: 'failed to save to database' });
+    return res.status(500).json({ message: 'Failed to save to database' });
   }
 }
 
@@ -36,20 +39,18 @@ async function deleteResponse(req, res) {
     if (!req.user || !req.user.userId) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    
+
     const userId = req.user.userId;
     const { id } = req.body;
     
     const response = await chatService.destroy(id, userId);
 
     if (!response.affectedRows) {
-      res.status(404).json({ message: '' });
+      return res.status(404).json({ message: 'Search history not found' });
     }
-    console.log(response);
-    res.status(204);
+    return res.status(204).end();
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'failed to delete database entry' });
+    return res.status(500).json({ message: 'failed to delete database entry' });
   }
 }
 
