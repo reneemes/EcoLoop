@@ -1,9 +1,8 @@
 const { GoogleGenAI } = require("@google/genai");
 const createConnection = require('../db.js');
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 async function create(prompt) {
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
