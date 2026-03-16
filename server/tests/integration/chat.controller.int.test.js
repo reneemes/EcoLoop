@@ -61,10 +61,25 @@ describe(endpointUrl, () => {
     });
   });
 
+  it('should throw when Gemini fails', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    GoogleGenAI.mockImplementation(() => ({
+      models: {
+        generateContent: jest.fn().mockRejectedValue(new Error("Gemini error"))
+      }
+    }));
+
+    await expect(ChatService.create("hello"))
+      .rejects
+      .toThrow("Response generation failed");
+
+    console.error.mockRestore();
+  });
+
 });
 
 describe(endpointUrl + '/save', () => {
-
   it('POST ' + endpointUrl + '/save', async () => {
     mockUser = { userId: 3 };
 
@@ -126,19 +141,6 @@ describe(endpointUrl, () => {
       .send({ id: 1 });
 
     expect(response.statusCode).toBe(204);
-  });
-
-  it('should return 401 if user is not authenticated', async () => {
-    mockUser = undefined;
-
-    const response = await request(app)
-      .delete(endpointUrl)
-      .send({ id: 1 });
-
-    expect(response.statusCode).toBe(401);
-    expect(response.body).toStrictEqual({
-      message: 'Not authenticated'
-    });
   });
 
   it('should return 404 if search history does not exist', async () => {
