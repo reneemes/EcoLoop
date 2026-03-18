@@ -8,7 +8,7 @@ async function geocode(location) {
     const data = response.data;
 
     if (!data || !data.data || data.data.length === 0) {
-      throw new Error('No results from PositionStack');
+      throw new Error('NO_RESULTS');
     }
 
     const place = data.data[0];
