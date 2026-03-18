@@ -9,7 +9,7 @@ async function getResponses(req, res) {
     const userId = req.user.userId;
     const response = await chatService.index(userId)
 
-    if (!response) {
+    if (!response || response.length === 0) {
       return res.status(404).json({ message: 'Search history not found' });
     }
 
