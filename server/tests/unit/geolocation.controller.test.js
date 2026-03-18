@@ -84,7 +84,31 @@ describe('Geolocation Controller - Get Action', () => {
       });
     });
 
-    
+    it('should return a 502 status code when geocode api fails', async () => {
+      req.body = { location: "New York" };
+      GeolocationService.geocode.mockRejectedValue({ message: 'GEOCODE_API_ERROR' });
+
+      await GeolocationController.geocodeHandler(req, res);
+
+      expect(res.statusCode).toBe(502);
+      expect(res._isEndCalled()).toBeTruthy();
+      expect(res._getJSONData()).toStrictEqual({
+        message: 'Geocoding service error'
+      });
+    });
+
+    it('should return a 50 status code for a server error', async () => {
+      req.body = { location: "New York" };
+      GeolocationService.geocode.mockRejectedValue({ message: 'GEOCODE_FETCH_FAILED' });
+
+      await GeolocationController.geocodeHandler(req, res);
+
+      expect(res.statusCode).toBe(500);
+      expect(res._isEndCalled()).toBeTruthy();
+      expect(res._getJSONData()).toStrictEqual({
+        message: 'Internal server error'
+      });
+    });
 
   });
 })
