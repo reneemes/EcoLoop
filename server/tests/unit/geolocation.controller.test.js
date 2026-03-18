@@ -1,13 +1,15 @@
-const GeolocationController = require('../../controllers/geolocation.controller.js');
-const GeolocationService = require('../../services/geolocation.service.js');
+const GeolocationController = require('../../controllers/geolocation.controller');
+const GeolocationService = require('../../services/geolocation.service');
 const httpMocks = require('node-mocks-http');
 
-jest.mock('../../services/geolocation.service.js');
+jest.mock('../../services/geolocation.service');
 
 let req, res;
 beforeEach(() => {
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
+
+  jest.clearAllMocks();
 });
 
 describe('Geolocation Controller - Get Action', () => {
@@ -97,7 +99,7 @@ describe('Geolocation Controller - Get Action', () => {
       });
     });
 
-    it('should return a 50 status code for a server error', async () => {
+    it('should return a 500 status code for a server error', async () => {
       req.body = { location: "New York" };
       GeolocationService.geocode.mockRejectedValue({ message: 'GEOCODE_FETCH_FAILED' });
 
