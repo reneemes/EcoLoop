@@ -4,7 +4,7 @@ const createConnection = require('../db.js');
 async function index(userId) {
   const db = await createConnection();
 
-  const [result] = db.promise().query(
+  const [result] = await db.promise().query(
     `SELECT id, keyword, result
     FROM search_history
     WHERE user_id = ?;`,
@@ -22,7 +22,6 @@ async function create(prompt) {
     });
     return response.text;
   } catch (error) {
-    console.error(error);
     throw new Error('Response generation failed');
   }
 }
