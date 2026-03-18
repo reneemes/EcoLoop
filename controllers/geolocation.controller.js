@@ -20,7 +20,7 @@ async function geocodeHandler(req, res) {
       return res.status(502).json({ message: 'Geocoding service error' });
     }
 
-    res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
