@@ -1,6 +1,18 @@
 const { GoogleGenAI } = require("@google/genai");
 const createConnection = require('../db.js');
 
+async function index(userId) {
+  const db = await createConnection();
+
+  const [result] = db.promise().query(
+    `SELECT id, keyword, result
+    FROM search_history
+    WHERE user_id = ?;`,
+    [userId]
+  );
+  return result;
+}
+
 async function create(prompt) {
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   try {
@@ -40,6 +52,7 @@ async function destroy(id, userId) {
 }
 
 module.exports = {
+  index,
   create,
   save,
   destroy,
