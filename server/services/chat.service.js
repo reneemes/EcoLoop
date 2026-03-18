@@ -1,6 +1,18 @@
 const { GoogleGenAI } = require("@google/genai");
 const createConnection = require('../db.js');
 
+async function index(userId) {
+  const db = await createConnection();
+
+  const [result] = await db.promise().query(
+    `SELECT id, keyword, result
+    FROM search_history
+    WHERE user_id = ?;`,
+    [userId]
+  );
+  return result;
+}
+
 async function create(prompt) {
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   try {
@@ -10,7 +22,6 @@ async function create(prompt) {
     });
     return response.text;
   } catch (error) {
-    console.error(error);
     throw new Error('Response generation failed');
   }
 }
@@ -40,6 +51,7 @@ async function destroy(id, userId) {
 }
 
 module.exports = {
+  index,
   create,
   save,
   destroy,

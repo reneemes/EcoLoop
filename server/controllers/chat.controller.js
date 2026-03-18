@@ -1,6 +1,24 @@
 const chatService = require('../services/chat.service');
 const { formatPrompt } = require('../utils/prompt.js');
 
+async function getResponses(req, res) {
+  try {
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
+    const userId = req.user.userId;
+    const response = await chatService.index(userId)
+
+    if (!response || response.length === 0) {
+      return res.status(404).json({ message: 'Search history not found' });
+    }
+
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({ message: 'Failed to retrieve search history' });
+  }
+}
+
 async function createResponse(req, res) {
   try {
     const { item } = req.body;
@@ -25,7 +43,7 @@ async function createResponse(req, res) {
 async function saveResponse(req, res) {
   try {
     if (!req.user || !req.user.userId) {
-      return res.status(401).json({ message: "Not authenticated" });
+      return res.status(401).json({ message: 'Not authenticated' });
     }
     
     const userId = req.user.userId;
@@ -45,7 +63,7 @@ async function saveResponse(req, res) {
 async function deleteResponse(req, res) {
   try {
     if (!req.user || !req.user.userId) {
-      return res.status(401).json({ message: "Not authenticated" });
+      return res.status(401).json({ message: 'Not authenticated' });
     }
 
     const userId = req.user.userId;
@@ -63,6 +81,7 @@ async function deleteResponse(req, res) {
 }
 
 module.exports = {
+  getResponses,
   createResponse,
   saveResponse,
   deleteResponse,

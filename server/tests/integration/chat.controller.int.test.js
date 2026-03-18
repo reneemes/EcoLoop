@@ -1,13 +1,14 @@
 const request = require('supertest');
 const app = require('../../app');
-const { GoogleGenAI } = require("@google/genai");
+// const { GoogleGenAI } = require("@google/genai");
 const ChatService = require('../../services/chat.service');
 
 const endpointUrl = '/api/v1/chat';
 
 let mockUser = { userId: 3 };
 
-jest.mock('@google/genai');
+jest.mock('../../services/chat.service');
+// jest.mock('@google/genai');
 jest.mock('../../middleware/auth', () => {
   return (req, res, next) => {
     req.user = mockUser;
@@ -16,68 +17,66 @@ jest.mock('../../middleware/auth', () => {
 });
 
 describe(endpointUrl, () => {
-  it('POST ' + endpointUrl, async () => {
+  it('GET ' + endpointUrl, async () => {
     mockUser = { userId: 3 };
-    const mockResponse = 'mock response';
+    const mockResponse = [
+        { id: 1, keyword: 'pizza', result: 'recycle' }
+    ];
+    ChatService.index.mockResolvedValue(mockResponse);
 
-    GoogleGenAI.mockImplementation(() => ({
-      models: {
-        generateContent: jest.fn().mockResolvedValue({
-          text: mockResponse
-        })
-      }
-    }));
+    const response = await request(app).get(endpointUrl);
 
-    const response = await request(app)
-      .post(endpointUrl)
-      .send({ item: 'soda bottle' });
-
-    expect(response.statusCode).toBe(201);
-    expect(response.body).toBe(mockResponse);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toStrictEqual(mockResponse);
   });
 
-  it('should return 400 if item is missing', async () => {
-    mockUser = { userId: 3 };
+  it('should return 401 if user is not authenticated', async () => {
+    mockUser = undefined;
 
-    const response = await request(app)
-      .post(endpointUrl)
-      .send({});
+    const response = await request(app).get(endpointUrl);
 
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(401);
     expect(response.body).toStrictEqual({
-      message: 'Missing required field: item'
+      message: 'Not authenticated'
     });
   });
 
-  it('should return 500 if AI generation fails', async () => {
+  it('should return 404 if no search history is found', async () => {
     mockUser = { userId: 3 };
 
-    const response = await request(app)
-      .post(endpointUrl)
+    ChatService.index.mockResolvedValue(null); // simulate no result
+
+    const response = await request(app).get(endpointUrl);
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toStrictEqual({
+      message: 'Search history not found'
+    });
+  });
+
+  it('should return 404 when search history is empty', async () => {
+    mockUser = { userId: 3 };
+
+    ChatService.index.mockResolvedValue([]);
+
+    const response = await request(app).get(endpointUrl);
+
+    expect(response.statusCode).toBe(404);
+  });
+
+  it('should return 500 if service throws an error', async () => {
+    mockUser = { userId: 3 };
+
+    ChatService.index.mockRejectedValue(new Error('DB failure'));
+
+    const response = await request(app).get(endpointUrl);
 
     expect(response.statusCode).toBe(500);
     expect(response.body).toStrictEqual({
-      message: 'Failed to generate a response'
+      message: 'Failed to retrieve search history'
     });
   });
-
-  it('should throw when Gemini fails', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-
-    GoogleGenAI.mockImplementation(() => ({
-      models: {
-        generateContent: jest.fn().mockRejectedValue(new Error("Gemini error"))
-      }
-    }));
-
-    await expect(ChatService.create("hello"))
-      .rejects
-      .toThrow("Response generation failed");
-
-    console.error.mockRestore();
-  });
-
-});
+})
 
 describe(endpointUrl + '/save', () => {
   it('POST ' + endpointUrl + '/save', async () => {
@@ -112,6 +111,8 @@ describe(endpointUrl + '/save', () => {
 
   it('should return 500 if saving fails', async () => {
     mockUser = { userId: 99999 }; // user that doesn't exist
+
+    ChatService.save.mockRejectedValue(new Error('DB failure'));
 
     const response = await request(app)
       .post(endpointUrl + '/save')
