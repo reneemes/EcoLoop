@@ -1,6 +1,5 @@
 const request = require('supertest');
 const app = require('../../app');
-// const { GoogleGenAI } = require("@google/genai");
 const ChatService = require('../../services/chat.service');
 
 const endpointUrl = '/api/v1/chat';
@@ -8,7 +7,6 @@ const endpointUrl = '/api/v1/chat';
 let mockUser = { userId: 3 };
 
 jest.mock('../../services/chat.service');
-// jest.mock('@google/genai');
 jest.mock('../../middleware/auth', () => {
   return (req, res, next) => {
     req.user = mockUser;
@@ -20,7 +18,7 @@ describe(endpointUrl, () => {
   it('GET ' + endpointUrl, async () => {
     mockUser = { userId: 3 };
     const mockResponse = [
-        { id: 1, keyword: 'pizza', result: 'recycle' }
+      { id: 1, keyword: 'pizza', result: 'recycle' }
     ];
     ChatService.index.mockResolvedValue(mockResponse);
 
@@ -44,7 +42,7 @@ describe(endpointUrl, () => {
   it('should return 404 if no search history is found', async () => {
     mockUser = { userId: 3 };
 
-    ChatService.index.mockResolvedValue(null); // simulate no result
+    ChatService.index.mockResolvedValue(null);
 
     const response = await request(app).get(endpointUrl);
 
@@ -110,7 +108,7 @@ describe(endpointUrl + '/save', () => {
   });
 
   it('should return 500 if saving fails', async () => {
-    mockUser = { userId: 99999 }; // user that doesn't exist
+    mockUser = { userId: 99999 };
 
     ChatService.save.mockRejectedValue(new Error('DB failure'));
 
