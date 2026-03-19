@@ -108,7 +108,7 @@ describe(endpointUrl + '/save', () => {
   });
 
   it('should return 500 if saving fails', async () => {
-    mockUser = { userId: 99999 }; // user that doesn't exist
+    mockUser = { userId: 99999 };
 
     ChatService.save.mockRejectedValue(new Error('DB failure'));
 

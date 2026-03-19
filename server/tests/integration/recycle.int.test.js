@@ -54,4 +54,61 @@ describe(endpointUrl, () => {
     });
 
   })
+
+  describe('POST ' + endpointUrl, () => {
+    it('should return 201 and create a new recycle history entry', async () => {
+      mockUser = { userId: 3 };
+
+      const response = await request(app)
+        .post(endpointUrl)
+        .send({
+          item_type: 'plastic',
+          item_name: 'soda bottle',
+          quantity: 5,
+          recycled_at: '2026-03-19'
+        });
+
+      expect(response.statusCode).toBe(201);
+      expect(response.body.message).toBe('Save successful!');
+    });
+
+    it('should return 401 if user is not authenticated', async () => {
+      mockUser = undefined;
+
+      const response = await request(app)
+        .post(endpointUrl)
+        .send({
+          item_type: 'plastic',
+          item_name: 'soda bottle',
+          quantity: 5,
+          recycled_at: '2026-03-19'
+        });
+
+      expect(response.statusCode).toBe(401);
+      expect(response.body).toStrictEqual({
+        message: 'Not authenticated'
+      });
+    });
+
+    it('should return 500 if saving fails', async () => {
+      mockUser = { userId: 99999 };
+
+      RecycleService.create.mockRejectedValue(new Error('DB failure'));
+
+      const response = await request(app)
+        .post(endpointUrl)
+        .send({
+          item_type: 'plastic',
+          item_name: 'soda bottle',
+          quantity: 5,
+          recycled_at: '2026-03-19'
+        });
+
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toStrictEqual({
+        message: 'Failed to save recycle history'
+      });
+    });
+
+  })
 })
