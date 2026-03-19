@@ -9,7 +9,7 @@ async function index(userId) {
     WHERE user_id = ?;`,
     [userId]
   );
-
+  
   return result;
 }
 
