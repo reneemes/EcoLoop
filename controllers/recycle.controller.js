@@ -23,7 +23,7 @@ async function createRecycleHistory(req, res) {
 
     const { item_type, item_name, quantity, recycled_at } = req.body;
     const userId = req.user.userId;
-    const response = recycleService.create(userId, item_type, item_name, quantity, recycled_at);
+    const response = await recycleService.create(userId, item_type, item_name, quantity, recycled_at);
 
     return res.status(201).json({response, message: 'Save successful!'});
   } catch (error) {
