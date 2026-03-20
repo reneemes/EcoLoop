@@ -1,0 +1,6 @@
+@use '../../styles/colors' as c;
+
+.footer {
+  background-color: c.$hunter-green;
+  color: c.$bright-snow;
+}
