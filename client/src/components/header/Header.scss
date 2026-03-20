@@ -1,0 +1,74 @@
+@use '../../styles/colors' as c;
+
+.header {
+  background-color: c.$tea-green;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .icon-wrapper {
+    font-size: 2rem;
+    display: flex;
+    gap: 0.25em;
+    align-items: center;
+  }
+
+  &__menu-btn {
+    color: c.$hunter-green;
+    height: 1em;
+    width: 1em;
+    cursor: pointer;
+  }
+
+  &__title {
+    color: c.$hunter-green;
+    font-size: 2rem;
+    margin: 1rem;
+  }
+  
+  &__nav-mobile {
+    background-color: c.$tea-green;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 30px;
+    transition: 0.5s;
+
+    &--link {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 1.75rem;
+      color: c.$hunter-green;
+      display: block;
+      transition: 0.3s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    #close-btn {
+      height: 1em;
+      width: 1em; 
+      margin: 20px 30px;
+      padding: 0;
+    }
+  }
+
+  &__nav-desktop {
+    display: none;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.open {
+  width: 250px;
+}
