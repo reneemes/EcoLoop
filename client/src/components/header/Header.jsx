@@ -2,6 +2,7 @@ import './Header.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+// import BigEcoLoop from '../../assets/Big-EcoLoop.png';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,7 @@ function Header() {
       </div>
 
       <a className='header__title'>EcoLoop</a>
+      {/* <img className='header__title' src={BigEcoLoop}/> */}
 
       <button>Login</button>
       
