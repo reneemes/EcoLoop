@@ -18,25 +18,39 @@
     background-color: c.$sea-green;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 75px) 50px;
+    grid-template-rows: repeat(3, 75px) 25px 75px 50px;
     grid-column-gap: 0px;
-    grid-row-gap: 15px;
+    // grid-row-gap: 15px;
+    padding-bottom: 50px;
 
     &--header {
       color: c.$bright-snow;
       text-align: center;
       font-weight: 300;
       grid-area: 1 / 1 / 2 / 3;
+      justify-self: center;
+      align-self: center;
     }
 
     div {
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
       background-color: c.$bright-snow;
+      height: 53px;
+      width: 80%;
+      justify-self: center;
+      align-self: center;
+
+      label {
+        padding: 3px 15px 0px;
+      }
 
       input {
         border: none;
         background-color: c.$bright-snow;
+        padding: 5px 15px 5px;
+        border-radius: 0 0 10px 10px;
       }
     }
 
@@ -46,17 +60,70 @@
     &--box-two {
       grid-area: 3 / 1 / 4 / 3;
     }
-    &--box-three {
-      grid-area: 4 / 1 / 5 / 2;
-    }
+    // &--box-three {
+    //   grid-area: 4 / 1 / 5 / 2;
+    // }
     &--box-four {
       grid-area: 4 / 2 / 5 / 3;
+      justify-self: flex-start;
+      align-self: center;
+
+      display: inline-block;
+      position: relative;
+
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom center;
+      }
+    }
+    &--box-four::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: c.$hunter-green;
+      transition: transform 0.25s ease-out;
+      transform-origin: bottom center;
     }
     &--box-five {
+      border: none;
+      border-radius: 10px;
       grid-area: 5 / 1 / 6 / 3;
+      background-color: c.$hunter-green;
+      color: c.$bright-snow;
+      font-size: 1.25em;
+      font-weight: 300;
+      height: 53px;
+      width: 80%;
+      justify-self: center;
+      align-self: center;
+
+      transition: background-color 1s;
+      transition: color 1s;
+
+      &:hover {
+        background-color: c.$tea-green;
+        color: c.$hunter-green;
+      }
+
+      &:focus, &:active {
+        background-color: c.$tea-green;
+        color: c.$hunter-green;
+        transition: none;
+      }
     }
     &--box-six {
       grid-area: 6 / 1 / 7 / 3;
+      justify-self: center;
+      align-self: center;
+
+      span {
+        color: c.$bright-snow;
+        cursor: pointer;
+      }
     }
   }
 }
