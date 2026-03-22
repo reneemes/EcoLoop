@@ -4,12 +4,15 @@ import Nature from '../../assets/nature.jpg';
 import Recycle from '../../assets/recycling.jpg';
 import Green from '../../assets/green.jpg';
 import RecycleIcon from '../../assets/recycle-icon.png';
+import Lightbulb from '../../assets/Lightbulb.png';
+import Plant from '../../assets/Plant.png';
 
 function Landing() {
   return (
     <section className='landing'>
       <h1 className='landing__headline'>Recycle Smarter. Live Greener.</h1>
 
+      {/* Hero */}
       <div className='landing__hero'>
         <img className='landing__hero--one' src={Nature}/>
         <div className='landing__hero--two'></div>
@@ -23,10 +26,11 @@ function Landing() {
             Take the guesswork out of recycling with an app designed 
             to make sustainable living simple.
           </p>
-          <button>Get Started</button>
+          <button className='landing__hero--cta cta-btn'>Get Started</button>
         </div>
       </div>
 
+      {/* Benefits */}
       <section className="landing__benefits" aria-labelledby="benefits-heading">
         <h2 className="landing__benefits--heading">Why use our app?</h2>
 
@@ -41,8 +45,9 @@ function Landing() {
             </article>
           </li>
 
-          <li className="landing__benefits-item">
+          <li className="landing__benefits--item">
             <article>
+              <img src={Lightbulb}/>
               <h3>Learn how to recycle anything</h3>
               <p>
                 From plastics to electronics, get clear, easy-to-follow guidance on how to recycle different items properly.
@@ -50,8 +55,9 @@ function Landing() {
             </article>
           </li>
 
-          <li className="landing__benefits-item">
+          <li className="landing__benefits--item">
             <article>
+              <img src={Plant}/>
               <h3>Track your impact over time</h3>
               <p>
                 See how your recycling efforts add up and stay motivated as you build better habits.
@@ -59,6 +65,47 @@ function Landing() {
             </article>
           </li>
         </ul>
+      </section>
+
+      {/* How it Works */}
+      <section className='landing__how' aria-labelledby='how-heading'>
+        <h2 id='how-heading'>How it works</h2>
+
+        <ul className='landing__how--steps'>
+          <li>
+            <h3>1. Search your item</h3>
+            <p>Type in what you want to recycle and get instant guidance.</p>
+          </li>
+
+          <li>
+            <h3>2. Find a nearby location</h3>
+            <p>We show you the closest recycling centers and drop-off points.</p>
+          </li>
+
+          <li>
+            <h3>3. Recycle with confidence</h3>
+            <p>Follow simple instructions and make a real environmental impact.</p>
+          </li>
+        </ul>
+      </section>
+
+      {/* Testimonials */}
+      <section className='landing__testimonials'>
+        <h2>What people are saying</h2>
+        <blockquote>
+          "I finally know what I can recycle. This app made it so easy.""
+        </blockquote>
+      </section>
+
+      {/* Final CTA */}
+      <section className='landing__cta'>
+        <h2>Take the First Step Toward Greener Living</h2>
+        <p>
+          Join thousands of people making sustainable living simple every day.
+        </p>
+        <button className='landing__cta--button cta-btn'>
+          Get Started for Free
+        </button>
       </section>
     </section>
   )

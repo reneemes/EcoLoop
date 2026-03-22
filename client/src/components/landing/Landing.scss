@@ -7,6 +7,8 @@
     color: c.$hunter-green;
     align-self: center;
     justify-self: center;
+    text-align: center;
+    padding: 20px 30px;
   }
 
   &__hero {
@@ -42,11 +44,15 @@
     }
     &--text {
       grid-area: 1 / 3 / 2 / 8;
-      font-size: .75em;
+      text-align: center;
+      p {
+        font-size: .85em;
+      }
     }
   }
 
   &__benefits {
+    background-color: c.$bright-snow;
     margin-top: 50px;
 
     &--heading {
@@ -58,14 +64,78 @@
 
     &--list {
       display: flex;
+      flex-direction: column;
       list-style-type: none;
     }
 
     &--item {
+      article {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 30px;
+        text-align: center;
+      }
       img {
         height: 100px;
       }
     }
+  }
+
+  &__how {
+    padding: 70px 0;
+
+    h2 {
+      color: c.$hunter-green;
+      text-align: center;
+    }
+
+    &--steps {
+      display: flex;
+      flex-direction: column;
+
+      li {
+        list-style-type: none;
+        padding: 20px 30px;
+        text-align: center;
+      }
+    }
+  }
+
+  &__testimonials {
+    background-color: c.$tea-green;
+    color: c.$hunter-green;
+    text-align: center;
+    padding: 40px 30px;
+  }
+
+  &__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px 30px;
+
+    h2 {
+      color: c.$hunter-green;
+    }
+  }
+}
+
+.cta-btn {
+  border: none;
+  border-radius: 15px;
+  background-color: c.$tea-green;
+  font-size: 1.25em;
+  padding: 10px;
+  margin: 6px;
+  outline: 2px solid transparent;
+  outline-offset: 0;
+  transition: outline-offset 0.3s ease, outline-color 0.3s ease;
+
+  &:hover {
+    outline-color: c.$tea-green;
+    outline-offset: 6px;
   }
 }
 
