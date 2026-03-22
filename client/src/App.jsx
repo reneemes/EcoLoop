@@ -1,18 +1,21 @@
 import './App.scss';
-import { Routes, Route } from 'react-router-dom';
+import { useLocation, Routes, Route } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
+import Login from './components/login/Login';
 
 function App() {
+  const location = useLocation();
+  const isAuthPage = location.pathname === '/login';
 
   return (
     <>
-      <Header />
+      {!isAuthPage && <Header/>}
       <main>
         <Routes>
           <Route path='/' element={<Landing/>}/>
-          {/* <Route path='/' element={<Landing/>}/> */}
+          <Route path='/login' element={<Login/>}/>
           {/* <Route path='/' element={<Landing/>}/> */}
         </Routes>
       </main>

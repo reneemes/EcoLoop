@@ -2,7 +2,6 @@ import './Header.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-// import BigEcoLoop from '../../assets/Big-EcoLoop.png';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +18,9 @@ function Header() {
         <Menu className='header__menu-btn' onClick={() => setIsOpen(true)}/>
       </div>
 
-      <a className='header__title'>EcoLoop</a>
-      {/* <img className='header__title' src={BigEcoLoop}/> */}
+      <Link to={'/'} className='header__title'>EcoLoop</Link>
 
-      <button>Login</button>
+      <Link to={'/login'} className='header__login-btn'>Login</Link>
       
       {/* Mobile Nav */}
       <nav className={`header__nav-mobile ${isOpen ? 'open' : ''}`}>
