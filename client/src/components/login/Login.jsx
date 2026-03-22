@@ -1,7 +1,20 @@
 import './Login.scss';
+import { useState } from 'react';
 import BigEcoLoop from '../../assets/Big-EcoLoop.png';
 
 function Login() {
+  const [mode, setMode] = useState('login');
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const switchMode = (nextMode) => {
+    setMode(nextMode);
+  }
+
   return (
     <section className='auth'>
       <div className='auth__logo'>
@@ -9,37 +22,45 @@ function Login() {
       </div>
 
       <form className='auth__login-form'>
-        <h1 className='auth__login-form--header'>Log In</h1>
+        <h1 className='auth__login-form--header'>Login</h1>
 
         <div className='auth__login-form--box-one'>
-          <label>Username</label>
-          <input placeholder='janedoe@xyz.com'></input>
+          <label htmlFor='username'>Username</label>
+          <input
+            id='username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder='janedoe@xyz.com'
+            disabled={mode !== "signup"}
+          />
         </div>
 
         <div className='auth__login-form--box-two'>
-          <label>Password</label>
-          <input placeholder='**********'></input>
+          <label htmlFor='password'>Password</label>
+          <input 
+            id='password'
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+          />
         </div>
 
-        <div className='auth__login-form--box-three'>
-          <label>Remember me</label>
-          {/* <input placeholder='**********'></input> */}
-        </div>
+        {/* <div className='auth__login-form--box-three'>
+          <label>Show Password</label>
+        </div> */}
 
-        <div className='auth__login-form--box-four'>
-          <label>Forgot Password</label>
-          {/* <input placeholder='**********'></input> */}
-        </div>
+        <p className='auth__login-form--box-four'>
+          Forgot Password?
+        </p>
 
-        <div className='auth__login-form--box-five'>
-          <label>Log In</label>
-          {/* <input placeholder='**********'></input> */}
-        </div>
+        <button className='auth__login-form--box-five'>
+          Log In
+        </button>
 
-        <div className='auth__login-form--box-six'>
-          <label>Don't have an account? Sign Up</label>
-          {/* <input placeholder='**********'></input> */}
-        </div>
+        <p className='auth__login-form--box-six'>
+          Don't have an account? <span onClick={() => switchMode('signup')} aria-selected={mode === 'signup'}>Sign Up</span>
+        </p>
       </form>
     </section>
   )
