@@ -4,15 +4,45 @@
   background-color: c.$linen;
 
   &__logo{
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 25px 1fr 25px;
+    grid-template-rows: 1fr;
+    font-size: 2rem;
+
+    .link {
+      padding-top: 20px;
+    }
+
+    &--btn {
+      grid-area: 1 / 1 / 2 / 2;
+      color: c.$hunter-green;
+      height: 1em;
+      width: 1em;
+      margin: 0 0 0 10px;
+    }
 
     &--img {
+      grid-area: 1 / 2 / 2 / 3;
+      justify-self: center;
+      align-self: center;
       height: 200px;
       width: 200px;
     }
   }
 
+  &__top {
+    padding-top: 20px;
+    font-size: 2rem;
+
+    &--btn {
+      color: c.$hunter-green;
+      height: 1em;
+      width: 1em;
+      margin: 0 0 0 10px;
+    }
+  }
+
+  &__signup-form,
   &__login-form {
     border-radius: 100px 0 0 0;
     background-color: c.$sea-green;
@@ -124,6 +154,39 @@
         color: c.$bright-snow;
         cursor: pointer;
       }
+    }
+  }
+
+  &__signup-form {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 75px) 50px;
+
+    h1 {
+      color: c.$bright-snow;
+      text-align: center;
+      font-weight: 300;
+      grid-area: 1 / 1 / 2 / 3;
+      justify-self: center;
+      align-self: center;
+    }
+
+    &--box-one {
+      grid-area: 2 / 1 / 3 / 3; 
+    }
+    &--box-two {
+      grid-area: 3 / 1 / 4 / 3; 
+    }
+    &--box-three {
+      grid-area: 4 / 1 / 5 / 3;
+    }
+    &--box-four {
+      grid-area: 5 / 1 / 6 / 3;
+    }
+    &--box-five {
+      grid-area: 6 / 1 / 7 / 3;
+    }
+    &--box-six {
+      grid-area: 7 / 1 / 8 / 3;
     }
   }
 }
