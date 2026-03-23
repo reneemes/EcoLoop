@@ -1,26 +1,62 @@
 import './Login.scss';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authContext';
 import BigEcoLoop from '../../assets/Big-EcoLoop.png';
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
 
 function Login() {
+  const navigate = useNavigate();
+  const { login, signup, isAuthenticated } = useAuth();
+
   const [mode, setMode] = useState('login');
-  // const isLogin = mode === 'login';
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const [email, setEmail] = useState('');
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/account", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  const isLogin = mode === 'login';
   const switchMode = (nextMode) => {
     setMode(nextMode);
   }
 
-  const isLogin = mode === 'login';
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // setServerError('');
+
+    try {
+      // setSubmitting(true);
+
+      if (mode === 'login') {
+        await login(username.trim(), password);
+        navigate('/account');
+        return;
+      }
+
+      await signup({
+        username: username.trim(),
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        email: email.trim(),
+        password,
+      });
+
+      navigate('/account');
+    } catch (error) {
+      // setServerError(err.message || 'Something went wrong.');
+      console.log(error)
+    // } finally {
+    //   setSubmitting(false);
+    }
+  };
 
   return (
     <section className='auth'>
@@ -40,7 +76,7 @@ function Login() {
       }
 
       {mode === 'login' ?
-        <form className='auth__login-form'>
+        <form className='auth__login-form' onSubmit={handleSubmit}>
           <h1 className='auth__login-form--header'>Login</h1>
 
           <div className='auth__login-form--box-one'>
