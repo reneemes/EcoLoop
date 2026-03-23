@@ -157,6 +157,14 @@
     }
   }
 
+  &__eye-btn {
+    border: none;
+    border-radius: 100px;
+    background-color: c.$bright-snow;
+    opacity: 0.5;
+    padding-right: 20px;
+  }
+
   &__signup-form {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(6, 75px) 50px;
@@ -189,4 +197,11 @@
       grid-area: 7 / 1 / 8 / 3;
     }
   }
+}
+#password-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }

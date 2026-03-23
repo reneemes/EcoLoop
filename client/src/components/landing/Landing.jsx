@@ -1,4 +1,5 @@
 import './Landing.scss';
+import { Link } from 'react-router-dom';
 import Earth from '../../assets/earth.JPG';
 import Nature from '../../assets/nature.jpg';
 import Recycle from '../../assets/recycling.jpg';
@@ -17,16 +18,16 @@ function Landing() {
         <img className='landing__hero--one' src={Nature}/>
         <div className='landing__hero--two'></div>
         <img className='landing__hero--three' src={Earth}/>
-        {/* <img className='landing__hero--three' src={BigEcoLoop}/> */}
         <img className='landing__hero--four' src={Recycle}/>
         <img className='landing__hero--five' src={Green}/>
-        {/* <div className='landing__hero--five'></div> */}
         <div className='landing__hero--text'>
           <p>
             Take the guesswork out of recycling with an app designed 
             to make sustainable living simple.
           </p>
-          <button className='landing__hero--cta cta-btn'>Get Started</button>
+          <Link to={'/login'}>
+            <button className='landing__hero--cta cta-btn'>Get Started</button>
+          </Link>
         </div>
       </div>
 
@@ -103,9 +104,11 @@ function Landing() {
         <p>
           Join thousands of people making sustainable living simple every day.
         </p>
-        <button className='landing__cta--button cta-btn'>
-          Get Started for Free
-        </button>
+        <Link to={'/login'}>
+          <button className='landing__cta--button cta-btn'>
+            Get Started for Free
+          </button>
+        </Link>
       </section>
     </section>
   )

@@ -6,8 +6,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: repeat(2, auto) 100px;
-  // grid-column-gap: 0px;
-  // grid-row-gap: 0px;
+  padding-top: 20px;
 
   &__logo {
     grid-area: 1 / 1 / 2 / 2;
