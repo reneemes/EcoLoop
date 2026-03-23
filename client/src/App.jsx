@@ -4,6 +4,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
 import Login from './components/login/Login';
+import About from './components/about/About';
 
 function App() {
   const location = useLocation();
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Landing/>}/>
           <Route path='/login' element={<Login/>}/>
-          {/* <Route path='/' element={<Landing/>}/> */}
+          <Route path='/about' element={<About/>}/>
         </Routes>
       </main>
       <Footer />
