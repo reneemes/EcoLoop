@@ -1,0 +1,207 @@
+@use '../../styles/colors' as c;
+
+.auth {
+  background-color: c.$linen;
+
+  &__logo{
+    display: grid;
+    grid-template-columns: 25px 1fr 25px;
+    grid-template-rows: 1fr;
+    font-size: 2rem;
+
+    .link {
+      padding-top: 20px;
+    }
+
+    &--btn {
+      grid-area: 1 / 1 / 2 / 2;
+      color: c.$hunter-green;
+      height: 1em;
+      width: 1em;
+      margin: 0 0 0 10px;
+    }
+
+    &--img {
+      grid-area: 1 / 2 / 2 / 3;
+      justify-self: center;
+      align-self: center;
+      height: 200px;
+      width: 200px;
+    }
+  }
+
+  &__top {
+    padding-top: 20px;
+    font-size: 2rem;
+
+    &--btn {
+      color: c.$hunter-green;
+      height: 1em;
+      width: 1em;
+      margin: 0 0 0 10px;
+    }
+  }
+
+  &__signup-form,
+  &__login-form {
+    border-radius: 100px 0 0 0;
+    background-color: c.$sea-green;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 75px) 25px 75px 50px;
+    grid-column-gap: 0px;
+    // grid-row-gap: 15px;
+    padding-bottom: 50px;
+
+    &--header {
+      color: c.$bright-snow;
+      text-align: center;
+      font-weight: 300;
+      grid-area: 1 / 1 / 2 / 3;
+      justify-self: center;
+      align-self: center;
+    }
+
+    div {
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      background-color: c.$bright-snow;
+      height: 53px;
+      width: 80%;
+      justify-self: center;
+      align-self: center;
+
+      label {
+        padding: 3px 15px 0px;
+      }
+
+      input {
+        border: none;
+        background-color: c.$bright-snow;
+        padding: 5px 15px 5px;
+        border-radius: 0 0 10px 10px;
+      }
+    }
+
+    &--box-one {
+      grid-area: 2 / 1 / 3 / 3;
+    }
+    &--box-two {
+      grid-area: 3 / 1 / 4 / 3;
+    }
+    // &--box-three {
+    //   grid-area: 4 / 1 / 5 / 2;
+    // }
+    &--box-four {
+      grid-area: 4 / 2 / 5 / 3;
+      justify-self: flex-start;
+      align-self: center;
+
+      display: inline-block;
+      position: relative;
+
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom center;
+      }
+    }
+    &--box-four::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: c.$hunter-green;
+      transition: transform 0.25s ease-out;
+      transform-origin: bottom center;
+    }
+    &--box-five {
+      border: none;
+      border-radius: 10px;
+      grid-area: 5 / 1 / 6 / 3;
+      background-color: c.$hunter-green;
+      color: c.$bright-snow;
+      font-size: 1.25em;
+      font-weight: 300;
+      height: 53px;
+      width: 80%;
+      justify-self: center;
+      align-self: center;
+
+      transition: background-color 1s;
+      transition: color 1s;
+
+      &:hover {
+        background-color: c.$tea-green;
+        color: c.$hunter-green;
+      }
+
+      &:focus, &:active {
+        background-color: c.$tea-green;
+        color: c.$hunter-green;
+        transition: none;
+      }
+    }
+    &--box-six {
+      grid-area: 6 / 1 / 7 / 3;
+      justify-self: center;
+      align-self: center;
+
+      span {
+        color: c.$bright-snow;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__eye-btn {
+    border: none;
+    border-radius: 100px;
+    background-color: c.$bright-snow;
+    opacity: 0.5;
+    padding-right: 20px;
+  }
+
+  &__signup-form {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 75px) 50px;
+
+    h1 {
+      color: c.$bright-snow;
+      text-align: center;
+      font-weight: 300;
+      grid-area: 1 / 1 / 2 / 3;
+      justify-self: center;
+      align-self: center;
+    }
+
+    &--box-one {
+      grid-area: 2 / 1 / 3 / 3; 
+    }
+    &--box-two {
+      grid-area: 3 / 1 / 4 / 3; 
+    }
+    &--box-three {
+      grid-area: 4 / 1 / 5 / 3;
+    }
+    &--box-four {
+      grid-area: 5 / 1 / 6 / 3;
+    }
+    &--box-five {
+      grid-area: 6 / 1 / 7 / 3;
+    }
+    &--box-six {
+      grid-area: 7 / 1 / 8 / 3;
+    }
+  }
+}
+#password-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

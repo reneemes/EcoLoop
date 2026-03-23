@@ -1,0 +1,75 @@
+@use '../../styles/colors' as c;
+
+.about {
+  background-color: c.$soft-linen;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    text-align: center;
+    padding: 100px 0;
+    background-image: linear-gradient(
+      315deg,
+      hsl(131deg 20% 48%) 0%,
+      hsl(126deg 18% 52%) 6%,
+      hsl(121deg 18% 56%) 12%,
+      hsl(115deg 19% 59%) 18%,
+      hsl(110deg 20% 63%) 24%,
+      hsl(105deg 22% 66%) 29%,
+      hsl(100deg 24% 69%) 35%,
+      hsl(96deg 26% 73%) 41%,
+      hsl(92deg 29% 76%) 47%,
+      hsl(94deg 25% 74%) 53%,
+      hsl(102deg 18% 67%) 59%,
+      hsl(110deg 14% 61%) 65%,
+      hsl(120deg 11% 54%) 71%,
+      hsl(130deg 11% 46%) 76%,
+      hsl(137deg 14% 39%) 82%,
+      hsl(144deg 18% 32%) 88%,
+      hsl(150deg 23% 25%) 94%,
+      hsl(156deg 31% 19%) 100%
+    );
+
+    h2 {
+      color: c.$hunter-green;
+      font-size: 3rem;
+    }
+  }
+
+  &__content {
+    padding: 40px 0;
+    p {
+      padding: 20px;
+    }
+  }
+
+  &__values {
+    background-color: c.$tea-green;
+    color: c.$hunter-green;
+    
+    h3 {
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    &-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      list-style-type: none;
+
+      li {
+        text-align: center;
+        padding: 10px;
+      }
+    }
+  }
+
+}
+
+strong {
+  color: c.$hunter-green;
+}

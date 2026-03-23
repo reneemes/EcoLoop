@@ -1,0 +1,100 @@
+@use '../../styles/colors' as c;
+
+.header {
+  background-color: c.$tea-green;
+  display: grid;
+  grid-template-columns: 1fr .5fr 2fr .5fr 1fr;
+  grid-template-rows: 80px;
+
+  .icon-wrapper {
+    font-size: 2rem;
+    display: flex;
+    gap: 0.25em;
+    align-items: center;
+    margin-left: 6px;
+
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  &__menu-btn {
+    color: c.$hunter-green;
+    height: 1em;
+    width: 1em;
+    cursor: pointer;
+  }
+
+  &__title {
+    color: c.$hunter-green;
+    font-size: 2rem;
+    margin: 1rem;
+
+    grid-area: 1 / 3 / 2 / 4;
+  }
+
+  &__login-btn {
+    grid-area: 1 / 5 / 2 / 6;
+    justify-self: end;   // horizontal alignment
+    align-self: center;  // vertical alignment
+
+    border-radius: 15px;
+    background-color: c.$hunter-green;
+    color: c.$tea-green;
+    font-size: 1em;
+    padding: 7px 10px;
+    margin-right: 6px;
+    outline: 2px solid transparent;
+    outline-offset: 0;
+    transition: outline-offset 0.1s ease, outline-color 0.1s ease;
+
+    &:hover {
+      outline-color: c.$hunter-green;
+      outline-offset: 3px;
+    }
+  }
+  
+  &__nav-mobile {
+    background-color: c.$tea-green;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 30px;
+    transition: 0.5s;
+
+    &--link {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 1.75rem;
+      color: c.$hunter-green;
+      display: block;
+      transition: 0.3s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    #close-btn {
+      height: 1em;
+      width: 1em; 
+      margin: 20px 30px;
+      padding: 0;
+    }
+  }
+
+  &__nav-desktop {
+    display: none;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.open {
+  width: 250px;
+}
