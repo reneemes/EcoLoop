@@ -1,9 +1,9 @@
 import './Landing.scss';
 import { Link } from 'react-router-dom';
 import Earth from '../../assets/earth.JPG';
-import Nature from '../../assets/nature.jpg';
-import Recycle from '../../assets/recycling.jpg';
-import Green from '../../assets/green.jpg';
+import Nature from '../../assets/nature.JPG';
+import Recycle from '../../assets/recycling.JPG';
+import Green from '../../assets/green.JPG';
 import RecycleIcon from '../../assets/recycle-icon.png';
 import Lightbulb from '../../assets/Lightbulb.png';
 import Plant from '../../assets/Plant.png';
