@@ -3,7 +3,7 @@ import { useLocation, Routes, Route } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
-import Login from './components/login/Login';
+import Login from './components/login/Auth';
 import About from './components/about/About';
 
 function App() {
