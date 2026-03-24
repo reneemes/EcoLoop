@@ -51,6 +51,7 @@ function Dashboard() {
       ...Object.entries(counts).map(([type, total]) => [
         type[0].toUpperCase() + type.slice(1),
         total,
+        // '#a8e6cf', // fallback color
         typeColors[type] || "#cccccc", // fallback color
       ])
     ];
@@ -67,7 +68,7 @@ function Dashboard() {
       <div className='dashboard__recycling'>
         <form className='dashboard__recycling--form'>
           <h3>Log Recycling</h3>
-          
+
           <div>
             <label>Type</label>
             <select>
@@ -85,9 +86,16 @@ function Dashboard() {
           </div>
 
           <div>
+            <label>Amount</label>
+            <input/>
+          </div>
+
+          <div>
             <label>Date Recycled</label>
             <input/>
           </div>
+
+          <button>Save</button>
         </form>
       </div>
     </section>
