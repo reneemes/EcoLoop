@@ -52,6 +52,23 @@
     }
   }
   
+  &__account {
+    grid-area: 1 / 5 / 2 / 6;
+    display: flex;
+    justify-self: end;
+    align-self: center;
+    font-size: 2rem;
+    padding: 7px 10px;
+    margin-right: 6px;
+
+    &--btn {
+      color: c.$hunter-green;
+      height: 1em;
+      width: 1em;
+      cursor: pointer;
+    }
+  }
+  
   &__nav-mobile {
     background-color: c.$tea-green;
     height: 100%;
