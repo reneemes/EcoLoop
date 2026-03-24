@@ -15,11 +15,12 @@ function Login() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/account", { replace: true });
+      navigate("/dashboard", { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
@@ -37,19 +38,17 @@ function Login() {
 
       if (mode === 'login') {
         await login(username.trim(), password);
-        navigate('/account');
+        navigate('/dashboard');
         return;
       }
 
       await signup({
         username: username.trim(),
-        first_name: firstName.trim(),
-        last_name: lastName.trim(),
         email: email.trim(),
         password,
       });
 
-      navigate('/account');
+      navigate('/dashboard');
     } catch (error) {
       // setServerError(err.message || 'Something went wrong.');
       console.log(error)
@@ -130,7 +129,7 @@ function Login() {
         </form>
       : 
         <form className='auth__signup-form'>
-          <h1 lassName='auth__signup-form--header'>Create Account</h1>
+          <h1 className='auth__signup-form--header'>Create Account</h1>
 
           <div className='auth__signup-form--box-one'>
             <label htmlFor='username'>Username</label>
@@ -147,9 +146,8 @@ function Login() {
             <label htmlFor='password'>Email</label>
             <input 
               id='email'
-              // type={showPassword ? 'text' : 'password'}
               value={email}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder='janedoe@xyz.com'
             />
           </div>
@@ -157,8 +155,8 @@ function Login() {
           <div className='auth__signup-form--box-three'>
             <label htmlFor='password'>Password</label>
             <input 
-              id='password'
-              type={showPassword ? 'text' : 'password'}
+              id='signup-password'
+              type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
@@ -168,10 +166,10 @@ function Login() {
           <div className='auth__signup-form--box-four'>
             <label htmlFor='password'>Confirm Password</label>
             <input 
-              id='password'
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id='confirm-password'
+              type='password'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
             />
           </div>

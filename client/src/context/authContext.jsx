@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const isAuthenticated = !!user;
-  const apiUrl = import.meta.env.FRONTEND_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // restore session on app load
   useEffect(() => {
