@@ -1,5 +1,13 @@
 const sessionService = require('../services/session.service.js');
 
+const isProd = process.env.NODE_ENV === 'production';
+const cookieOptions = {
+  httpOnly: true,
+  secure: isProd,
+  sameSite: isProd ? 'none' : 'lax',
+  path: '/',
+};
+
 async function checkSession(req, res) {
   try {
     if (!req.user || !req.user.userId) {
@@ -26,13 +34,10 @@ async function createSession(req, res) {
       username,
       password
     );
-
+    
     res
       .cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/',
+        cookieOptions,
         maxAge: 3600000,
       })
       .status(201)
@@ -44,17 +49,11 @@ async function createSession(req, res) {
     res.status(401).json({
       message: error.message,
     });
-    // next(error);
   }
 };
 
 async function logout(req, res) {
-  res.clearCookie('token', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-  });
+  res.clearCookie('token', cookieOptions);
   res.status(200).json({ message: 'Sign out successful' });
 };
 
