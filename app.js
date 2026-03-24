@@ -14,12 +14,24 @@ const recycleRoutes = require('./routes/recycle.routes.js');
 const app = express();
 
 // middleware → allows cross-origin requests
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "http://localhost:5173", // local dev
+  process.env.FRONTEND_URL // production
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow tools like Postman or curl
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    }
+  },
+  credentials: true
+}));
+
 // allows us to parse JSON data from requests
 app.use(express.json());
 // allows you to read the cookies. Example: req.cookies.token
