@@ -1,11 +1,19 @@
 import './Header.scss';
+import { useAuth } from '../../context/authContext';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, CircleUser } from 'lucide-react';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const closeNav = () => setIsOpen(false);
+
+  const { logout, isAuthenticated } = useAuth();
+
+  const handleLogout = () => {
+    closeNav();
+    logout();
+  }
 
   return (
     <header className='header'>
@@ -20,7 +28,13 @@ function Header() {
 
       <Link to={'/'} className='header__title'>EcoLoop</Link>
 
-      <Link to={'/login'} className='header__login-btn'>Login</Link>
+      {isAuthenticated ? 
+        <Link to={'/dashboard'} className='header__account'> 
+          <CircleUser className='header__account--btn'/>
+        </Link>
+      :
+        <Link to={'/login'} className='header__login-btn'>Login</Link>
+      }
       
       {/* Mobile Nav */}
       <nav className={`header__nav-mobile ${isOpen ? 'open' : ''}`}>
@@ -31,6 +45,12 @@ function Header() {
             onClick={() => setIsOpen(false)}
           />
         </div>
+        {isAuthenticated && (
+          <Link 
+            className='header__nav-mobile--link' 
+            to={'/resources'} 
+            onClick={() => setIsOpen(false)}>Search</Link>
+        )}
         <Link 
           className='header__nav-mobile--link' 
           to={'/about'} 
@@ -39,10 +59,18 @@ function Header() {
           className='header__nav-mobile--link' 
           to={'/resources'} 
           onClick={() => setIsOpen(false)}>Resources</Link>
-        <Link 
+        {!isAuthenticated ?
+          <Link 
           className='header__nav-mobile--link' 
           to={'/login'} 
           onClick={() => setIsOpen(false)}>Login</Link>
+        :
+          <Link
+            className='header__nav-mobile--link'
+            to={'/'}
+            onClick={() => handleLogout()}
+          >Logout</Link>
+        }
       </nav>
 
       {/* Desktop Nav */}

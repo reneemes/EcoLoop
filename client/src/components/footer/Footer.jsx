@@ -14,6 +14,7 @@ function Footer() {
 
       <div className='footer__links'>
         <h4>Sitemap</h4>
+        <Link to={'/'}>Home</Link>
         <Link to={'/about'}>About Us</Link>
         <Link to={'/resources'}>Resources</Link>
         <Link to={'/login'}>Login</Link>
@@ -30,7 +31,7 @@ function Footer() {
 
       <div className='footer__copyright'>
         <p className='footer__copyright--trademark'>Copyright © 2026 EcoLoop. All rights reserved.</p> 
-        <p className='footer__copyright--disclosure'>EcoLoop is a project for educational purposes.</p>
+        <p className='footer__copyright--disclosure'>EcoLoop is a student project for educational purposes.</p>
       </div>
     </footer>
   )

@@ -1,26 +1,61 @@
 import './Login.scss';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authContext';
 import BigEcoLoop from '../../assets/Big-EcoLoop.png';
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
 
 function Login() {
+  const navigate = useNavigate();
+  const { login, signup, isAuthenticated } = useAuth();
+
   const [mode, setMode] = useState('login');
-  // const isLogin = mode === 'login';
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  const isLogin = mode === 'login';
   const switchMode = (nextMode) => {
     setMode(nextMode);
   }
 
-  const isLogin = mode === 'login';
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // setServerError('');
+
+    try {
+      // setSubmitting(true);
+
+      if (mode === 'login') {
+        await login(username.trim(), password);
+        navigate('/dashboard');
+        return;
+      }
+
+      await signup({
+        username: username.trim(),
+        email: email.trim(),
+        password,
+      });
+
+      navigate('/dashboard');
+    } catch (error) {
+      // setServerError(err.message || 'Something went wrong.');
+      console.log(error)
+    // } finally {
+    //   setSubmitting(false);
+    }
+  };
 
   return (
     <section className='auth'>
@@ -40,7 +75,7 @@ function Login() {
       }
 
       {mode === 'login' ?
-        <form className='auth__login-form'>
+        <form className='auth__login-form' onSubmit={handleSubmit}>
           <h1 className='auth__login-form--header'>Login</h1>
 
           <div className='auth__login-form--box-one'>
@@ -94,7 +129,7 @@ function Login() {
         </form>
       : 
         <form className='auth__signup-form'>
-          <h1 lassName='auth__signup-form--header'>Create Account</h1>
+          <h1 className='auth__signup-form--header'>Create Account</h1>
 
           <div className='auth__signup-form--box-one'>
             <label htmlFor='username'>Username</label>
@@ -111,9 +146,8 @@ function Login() {
             <label htmlFor='password'>Email</label>
             <input 
               id='email'
-              // type={showPassword ? 'text' : 'password'}
               value={email}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder='janedoe@xyz.com'
             />
           </div>
@@ -121,8 +155,8 @@ function Login() {
           <div className='auth__signup-form--box-three'>
             <label htmlFor='password'>Password</label>
             <input 
-              id='password'
-              type={showPassword ? 'text' : 'password'}
+              id='signup-password'
+              type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
@@ -132,10 +166,10 @@ function Login() {
           <div className='auth__signup-form--box-four'>
             <label htmlFor='password'>Confirm Password</label>
             <input 
-              id='password'
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id='confirm-password'
+              type='password'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
             />
           </div>
