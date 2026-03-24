@@ -63,6 +63,33 @@ function Dashboard() {
       <div className='dashboard__stat-block'>
         <MyChart data={formatStats(stats)}/>
       </div>
+
+      <div className='dashboard__recycling'>
+        <form className='dashboard__recycling--form'>
+          <h3>Log Recycling</h3>
+          
+          <div>
+            <label>Type</label>
+            <select>
+              <option>Plastic</option>
+              <option>Glass</option>
+              <option>Paper</option>
+              <option>Metal</option>
+              <option>Cardboard</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Item</label>
+            <input/>
+          </div>
+
+          <div>
+            <label>Date Recycled</label>
+            <input/>
+          </div>
+        </form>
+      </div>
     </section>
   )
 }

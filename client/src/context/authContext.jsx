@@ -36,21 +36,21 @@ export function AuthProvider({ children }) {
   }, []);
 
   // NEW: refreshUser to reload the latest user info
-  const refreshUser = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/api/v1/session`, {
-        method: 'GET',
-        credentials: 'include',
-      });
+  // const refreshUser = async () => {
+  //   try {
+  //     const res = await fetch(`${apiUrl}/api/v1/session`, {
+  //       method: 'GET',
+  //       credentials: 'include',
+  //     });
 
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data.user);
-      }
-    } catch (err) {
-      console.error('Failed to refresh user:', err);
-    }
-  };
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       setUser(data.user);
+  //     }
+  //   } catch (err) {
+  //     console.error('Failed to refresh user:', err);
+  //   }
+  // };
 
   // login function
   async function login(username, password) {
@@ -105,7 +105,7 @@ export function AuthProvider({ children }) {
     login,
     signup,
     logout,
-    refreshUser, // <-- expose refreshUser
+    // refreshUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
