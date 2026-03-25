@@ -1,6 +1,7 @@
 import './dashboard.scss';
 import { useAuth } from '../../context/authContext';
 import MyChart from '../chart/chart';
+import Chat from '../chat/chat';
 import { useEffect, useState, useMemo } from 'react';
 
 function Dashboard() {
@@ -148,6 +149,10 @@ function Dashboard() {
             onClick={submitRecycling}
           >Save</button>
         </form>
+      </div>
+
+      <div className='dashboard__chat'>
+        <Chat />
       </div>
     </section>
   )
