@@ -33,8 +33,8 @@ async function createResponse(req, res) {
     if (!response) {
       return res.status(500).json({ message: 'No response generated' });
     }
-
-    return res.status(201).json(response);
+    const parsedResponse = JSON.parse(response);
+    return res.status(201).json(parsedResponse);
   } catch (error) {
     return res.status(500).json({ message: 'Failed to generate a response' });
   }

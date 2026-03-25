@@ -1,6 +1,6 @@
 import './history.scss';
 import { useState } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Trash2, ChevronDown } from 'lucide-react';
 
 function History({ id, keyword, result }) {
   const [openId, setOpenId] = useState(null);
@@ -10,22 +10,25 @@ function History({ id, keyword, result }) {
   }
 
   return (
-    <div key={id} className='keyword__item'>
-      <p
-        className='keyword__title'
-        onClick={() => toggleDropdown(id)}
-      >
+    <div key={id} className='item'>
+      <button className='item__arrow' onClick={() => toggleDropdown(id)}>
+        <ChevronDown />
+      </button>
+
+      <p className='item__title' onClick={() => toggleDropdown(id)}>
         {keyword}
       </p>
 
       {/* Dropdown for result */}
       {openId === id && (
-        <div className='keyword__dropdown'>
+        <div className='item__dropdown'>
           <p>{result}</p>
         </div>
       )}
 
-      <button><Trash2 /></button>
+      <button className='item__trash'>
+        <Trash2 />
+      </button>
     </div>
   );
 }
