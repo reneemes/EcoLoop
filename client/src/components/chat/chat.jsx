@@ -23,7 +23,7 @@ function Chat() {
         credentials: 'include',
         body: JSON.stringify({ item }),
       });
-
+      setLoading(true);
       const data = await res.json();
 
       setMessages(prev => [
@@ -31,7 +31,9 @@ function Chat() {
         { role: "assistant", content: data }
       ]);
       saveAIResponse(data)
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
 
