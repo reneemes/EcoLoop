@@ -6,6 +6,13 @@ import { useEffect, useState, useMemo } from 'react';
 function Dashboard() {
   const { user, isAuthenticated } = useAuth();
   const [stats, setStats] = useState();
+  const [saveError, setSaveError] = useState();
+
+  // Form State
+  const [itemType, setItemType] = useState('');
+  const [itemName, setItemName] = useState('');
+  const [itemAmount, setItemAmount] = useState('');
+  const [recycleDate, setRecycleDate] = useState('');
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -57,6 +64,30 @@ function Dashboard() {
     ];
   }
 
+  const submitRecycling = async () => {
+    try {
+      const res = await fetch(`${apiUrl}/api/v1/recycle`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          item_type: itemType,
+          item_name: itemName,
+          quantity: itemAmount,
+          recycled_at: recycleDate,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to save recycling');
+      }
+
+      fetchRecycleStats();
+    } catch (error) {
+      setSaveError(error)
+    }
+  }
+
   return (
     <section className='dashboard'>
       {/* <h1 className='dashboard__header'>Hello {user.username}</h1> */}
@@ -67,11 +98,15 @@ function Dashboard() {
 
       <div className='dashboard__recycling'>
         <form className='dashboard__recycling--form'>
-          <h3>Log Recycling</h3>
+          <h3 className='dashboard__recycling--header'>Log Recycling</h3>
 
-          <div>
-            <label>Type</label>
-            <select>
+          <div className='dashboard__recycling--box-type'>
+            <label htmlFor='type'>Type</label>
+            <select 
+              id='type'
+              value={itemType}
+              onChange={(e) => setItemType(e.target.value)}
+            >
               <option>Plastic</option>
               <option>Glass</option>
               <option>Paper</option>
@@ -80,22 +115,38 @@ function Dashboard() {
             </select>
           </div>
 
-          <div>
-            <label>Item</label>
-            <input/>
+          <div className='dashboard__recycling--box-name'>
+            <label htmlFor='item-name'>Item</label>
+            <input
+              id='item-name'
+              value={itemName}
+              onChange={(e) => setItemName(e.target.value)}
+            />
           </div>
 
-          <div>
-            <label>Amount</label>
-            <input/>
+          <div className='dashboard__recycling--box-amount'>
+            <label htmlFor='amount'>Amount</label>
+            <input
+              id='amount'
+              value={itemAmount}
+              onChange={(e) => setItemAmount(e.target.value)}
+            />
           </div>
 
-          <div>
-            <label>Date Recycled</label>
-            <input/>
+          <div className='dashboard__recycling--box-date'>
+            <label htmlFor='date'>Date Recycled</label>
+            <input
+              id='date'
+              type='date'
+              value={recycleDate}
+              onChange={(e) => setRecycleDate(e.target.value)}
+            />
           </div>
 
-          <button>Save</button>
+          <button
+            className='dashboard__recycling--submit-btn'
+            onClick={submitRecycling}
+          >Save</button>
         </form>
       </div>
     </section>
