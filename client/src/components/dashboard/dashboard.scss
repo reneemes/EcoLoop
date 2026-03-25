@@ -1,3 +1,5 @@
+@use '../../styles/colors' as c;
+
 .dashboard {
 
   &__recycling {
@@ -13,4 +15,26 @@
       }
     }
   }
+
+  &__chat {
+    border: 2px solid c.$hunter-green;
+    height: 50vh;
+  }
+
+  &__history {
+    background-color: c.$sea-green;
+    
+    h3 {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    
+    &--grid {
+      display: flex;
+    }
+  }
+}
+
+.bold {
+  font-weight: 600;
 }

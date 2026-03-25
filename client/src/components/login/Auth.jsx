@@ -138,12 +138,11 @@ function Login() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder='janedoe'
-              // disabled={mode !== "signup"}
             />
           </div>
 
           <div className='auth__signup-form--box-two'>
-            <label htmlFor='password'>Email</label>
+            <label htmlFor='email'>Email</label>
             <input 
               id='email'
               value={email}
@@ -164,7 +163,7 @@ function Login() {
           </div>
 
           <div className='auth__signup-form--box-four'>
-            <label htmlFor='password'>Confirm Password</label>
+            <label htmlFor='confirm-password'>Confirm Password</label>
             <input 
               id='confirm-password'
               type='password'

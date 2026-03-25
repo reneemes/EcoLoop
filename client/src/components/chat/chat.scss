@@ -1,0 +1,25 @@
+@use '../../styles/colors' as c;
+
+.chat {  
+  &__messages {
+    .user,
+    .assistant {
+      border-radius: 50px;
+      background-color: c.$tea-green;
+      padding: 10px 25px;
+    }
+    
+    .assistant {
+      background-color: c.$sea-green;
+    }
+  }
+  &__form {
+    input {
+      grid-area: 2 / 2 / 3 / 3;
+      font-size: 1rem;
+    }
+    button {
+      grid-area: 2 / 3 / 3 / 4;
+    }
+  }
+}
