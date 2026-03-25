@@ -1,3 +1,5 @@
+@use '../../styles/colors' as c;
+
 .dashboard {
 
   &__recycling {
@@ -12,5 +14,9 @@
         width: 50%;
       }
     }
+  }
+
+  &__chat {
+    border: 2px solid c.$hunter-green;
   }
 }
