@@ -2,12 +2,15 @@ import './dashboard.scss';
 import { useAuth } from '../../context/authContext';
 import MyChart from '../chart/chart';
 import Chat from '../chat/chat';
+import History from '../history/history';
 import { useEffect, useState, useMemo } from 'react';
 
 function Dashboard() {
   const { user, isAuthenticated } = useAuth();
   const [stats, setStats] = useState();
   const [saveError, setSaveError] = useState();
+
+  const [history, setHistory] = useState([]);
 
   // Form State
   const [itemType, setItemType] = useState('');
@@ -34,8 +37,26 @@ function Dashboard() {
     }
 
     fetchRecycleStats();
-  }, [apiUrl]);
 
+    async function fetchSearchHistory() {
+      const res = await fetch(`${apiUrl}/api/v1/chat`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'Fetch failed');
+      }
+      
+      const data = await res.json();
+      setHistory(data);
+    }
+
+    fetchSearchHistory();
+  }, [apiUrl]);
+  console.log(history)
+  
   const formatStats = (items = []) => {
     const counts = items
       .filter(item => item && item.recycled_at)
@@ -87,6 +108,10 @@ function Dashboard() {
     } catch (error) {
       setSaveError(error)
     }
+  }
+
+  const formatTitle = (string) => {
+    return string.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
   }
 
   return (
@@ -154,6 +179,20 @@ function Dashboard() {
       <div className='dashboard__chat'>
         <Chat />
       </div>
+
+      <section className='dashboard__history'>
+        <h3>Search History</h3>
+        <div className='dashboard__history--grid'>
+          {history.map((result) => (
+            <History 
+              id={result.id} 
+              keyword={result.keyword} 
+              result={result.result}
+            />
+          ))}
+        </div>
+        {/* <History history={history}/> */}
+      </section>
     </section>
   )
 }

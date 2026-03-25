@@ -7,6 +7,7 @@ import Landing from './components/landing/Landing';
 import Login from './components/login/Auth';
 import About from './components/about/About';
 import Dashboard from './components/dashboard/dashboard';
+import Resources from './components/resources/resources';
 
 function App() {
   const location = useLocation();
@@ -20,6 +21,7 @@ function App() {
           <Route path='/' element={<Landing/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/about' element={<About/>}/>
+          <Route path='/resources' element={<Resources/>}/>
 
           <Route path='/dashboard' element={
             <ProtectedRoute>
