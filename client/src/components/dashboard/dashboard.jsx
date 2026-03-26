@@ -21,41 +21,41 @@ function Dashboard() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    async function fetchRecycleStats() {
-      const res = await fetch(`${apiUrl}/api/v1/recycle`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-      
-      if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || 'Fetch failed');
-      }
-      
-      const data = await res.json();
-      setStats(data);
-    }
+    if (!isAuthenticated) return;
 
     fetchRecycleStats();
-
-    async function fetchSearchHistory() {
-      const res = await fetch(`${apiUrl}/api/v1/chat`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-
-      if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || 'Fetch failed');
-      }
-      
-      const data = await res.json();
-      setHistory(data);
-    }
-
     fetchSearchHistory();
-  }, [apiUrl]);
-  console.log(history)
+  }, [apiUrl, isAuthenticated]);
+
+  async function fetchRecycleStats() {
+    const res = await fetch(`${apiUrl}/api/v1/recycle`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    
+    // if (!res.ok) {
+    //   const error = await res.json();
+    //   throw new Error(error.message || 'Fetch failed');
+    // }
+    
+    const data = await res.json();
+    setStats(data);
+  }
+
+  async function fetchSearchHistory() {
+    const res = await fetch(`${apiUrl}/api/v1/chat`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    // if (!res.ok) {
+    //   const error = await res.json();
+    //   throw new Error(error.message || 'Fetch failed');
+    // }
+    
+    const data = await res.json();
+    setHistory(data);
+  }
   
   const formatStats = (items = []) => {
     const counts = items
@@ -81,7 +81,7 @@ function Dashboard() {
         type[0].toUpperCase() + type.slice(1),
         total,
         // '#a8e6cf', // fallback color
-        typeColors[type] || "#cccccc", // fallback color
+        typeColors[type] || "#cccccc",
       ])
     ];
   }
@@ -100,9 +100,9 @@ function Dashboard() {
         }),
       });
 
-      if (!res.ok) {
-        throw new Error('Failed to save recycling');
-      }
+      // if (!res.ok) {
+      //   throw new Error('Failed to save recycling');
+      // }
 
       fetchRecycleStats();
     } catch (error) {
@@ -110,13 +110,20 @@ function Dashboard() {
     }
   }
 
-  const formatTitle = (string) => {
-    return string.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+  const deleteSearchHistory = async (id) => {
+    try {
+      await fetch(`${apiUrl}/api/v1/chat/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      })
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <section className='dashboard'>
-      {/* <h1 className='dashboard__header'>Hello {user.username}</h1> */}
+      {/* <h1 className='dashboard__header'>{user.username}'s Dashboard</h1> */}
 
       <div className='dashboard__stat-block'>
         <MyChart data={formatStats(stats)}/>
@@ -185,9 +192,11 @@ function Dashboard() {
         <div className='dashboard__history--grid'>
           {history.map((result) => (
             <History 
+              key={result.id}
               id={result.id} 
               keyword={result.keyword} 
               result={result.result}
+              deleteSearchHistory={deleteSearchHistory}
             />
           ))}
         </div>
