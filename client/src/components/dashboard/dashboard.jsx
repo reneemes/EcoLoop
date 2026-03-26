@@ -11,6 +11,7 @@ function Dashboard() {
   const [saveError, setSaveError] = useState();
 
   const [history, setHistory] = useState([]);
+  const [openId, setOpenId] = useState(null);
 
   // Form State
   const [itemType, setItemType] = useState('');
@@ -198,6 +199,8 @@ function Dashboard() {
               keyword={result.keyword} 
               result={result.result}
               deleteSearchHistory={deleteSearchHistory}
+              openId={openId}
+              setOpenId={setOpenId}
             />
           ))}
         </div>

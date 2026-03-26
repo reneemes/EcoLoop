@@ -1,0 +1,45 @@
+@use '../../styles/colors' as c;
+
+.resources {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__left-panel {
+    // width: 35%;
+    text-align: center;
+  }
+
+  &__form-box {
+    display: flex;
+    justify-content: space-around;
+
+    h2 {
+      text-align: center;
+      color: c.$hunter-green;
+      padding: 20px;
+    }
+
+    input,
+    button {
+      border: 1px solid c.$sea-green;
+      padding: 3px;
+    }
+
+    button {
+      background-color: c.$tea-green;
+    }
+  }
+
+  &__map {
+    align-self: center;
+    width: 90%;
+    height: 600px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .resources {
+    flex-direction: row;
+  }
+}
