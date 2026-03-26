@@ -123,10 +123,10 @@ function Dashboard() {
 
   return (
     <section className='dashboard'>
-      {/* <h1 className='dashboard__header'>{user.username}'s Dashboard</h1> */}
+      <h1 className='dashboard__header'>{user.username}'s Dashboard</h1>
 
       <div className='dashboard__stat-block'>
-        <MyChart data={formatStats(stats)}/>
+        <MyChart className='chart' data={formatStats(stats)}/>
       </div>
 
       <div className='dashboard__recycling'>
@@ -184,6 +184,7 @@ function Dashboard() {
       </div>
 
       <div className='dashboard__chat'>
+        <h3 className='dashboard__chat--title'>Search</h3>
         <Chat />
       </div>
 

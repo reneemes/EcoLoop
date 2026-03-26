@@ -198,10 +198,29 @@
     }
   }
 }
+
 #password-box {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .auth__signup-form,
+  .auth__login-form {
+    height: 100%;
+  }
+
+  .auth__login-form--box-five,
+  .auth__login-form div,
+  .auth__signup-form div,
+  .auth__signup-form--box-five  {
+    width: 50%;
+  }
+
+  .auth {
+    height: 80vh;
+  }
 }
