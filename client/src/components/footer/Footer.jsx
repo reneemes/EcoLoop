@@ -9,7 +9,7 @@ function Footer() {
     <footer className='footer'>
       <div className='footer__logo'>
         <img className='footer__logo--img' src={BigEcoLoop} alt='EcoLoop logo'/>
-        <p className='footer__logo--text'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p className='footer__logo--text'>Recycle Smarter. Live Greener.</p>
       </div>
 
       <div className='footer__links'>

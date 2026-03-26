@@ -1,6 +1,12 @@
 @use '../../styles/colors' as c;
 
 .dashboard {
+  &__header {
+    color: c.$hunter-green;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 15px;
+  }
 
   &__recycling {
     &--form {
@@ -53,6 +59,13 @@
   &__chat {
     border: 1px solid c.$hunter-green;
     height: 50vh;
+
+    &--title {
+      text-align: center;
+      color: c.$hunter-green;
+      font-size: 1.5rem;
+      padding: 15px;
+    }
   }
 
   &__history {
@@ -73,4 +86,28 @@
 
 .bold {
   font-weight: 600;
+}
+
+@media screen and (min-width: 768px) {
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: .2fr repeat(2, 1fr) .2fr;
+
+    &__header {
+      grid-area: 1 / 1 / 2 / 3;
+      align-self: center;
+    }
+
+    &__chat {
+      grid-area: 3 / 2 / 5 / 3;
+    }
+    
+    &__history {
+      grid-area: 3 / 1 / 5 / 2;
+      height: 50vh;
+      // height: 512px;
+      overflow-y: scroll;
+    }
+  }
 }
