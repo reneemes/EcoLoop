@@ -85,7 +85,6 @@ function Login() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder='janedoe'
-              // disabled={mode !== "signup"}
             />
           </div>
 
