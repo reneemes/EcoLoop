@@ -7,26 +7,61 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      color: c.$hunter-green;
+      margin-bottom: 40px;
 
       div {
         display: flex;
         flex-direction: column;
         width: 50%;
+        margin-bottom: 10px;
       }
+
+      input,
+      select {
+        border-radius: 5px;
+        border: 1px solid c.$hunter-green;
+        padding: 5px;
+      }
+    }
+
+    &--submit-btn {
+      border-radius: 5px;
+      background-color: c.$hunter-green;
+      color: c.$bright-snow;
+      padding: 5px 15px;
+
+      outline: 2px solid transparent;
+      outline-offset: 0;
+      transition: outline-offset 0.1s ease, outline-color 0.1s ease;
+
+      &:hover {
+        background-color: c.$tea-green;
+        outline-color: c.$tea-green;
+        color: c.$hunter-green;
+        outline-offset: 3px;
+      }
+    }
+
+    &--header {
+      font-weight: 500;
+      font-size: 1.5rem;
+      padding: 10px;
     }
   }
 
   &__chat {
-    border: 2px solid c.$hunter-green;
+    border: 1px solid c.$hunter-green;
     height: 50vh;
   }
 
   &__history {
-    background-color: c.$sea-green;
+    background-color: c.$tea-green;
     
     h3 {
       text-align: center;
       font-size: 1.5rem;
+      padding: 15px;
     }
     
     &--grid {

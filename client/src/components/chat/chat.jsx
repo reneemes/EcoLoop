@@ -1,5 +1,6 @@
 import './chat.scss';
 import { useState } from 'react';
+import { CircleArrowUp } from 'lucide-react';
 
 function Chat() {
   const [item, setItem] = useState('');
@@ -95,7 +96,9 @@ function Chat() {
           onChange={(e) => setItem(e.target.value)}
           placeholder='Soda Bottle'
         />
-        <button type='submit'>Send</button>
+        <button type='submit'>
+          <CircleArrowUp className='arrow'/>
+        </button>
       </form>
     </div>
   );
