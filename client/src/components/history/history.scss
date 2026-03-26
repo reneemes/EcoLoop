@@ -26,6 +26,10 @@
   &__trash {
     grid-area: 1 / 3 / 2 / 4;
   }
+
+  &:hover {
+    background-color: #e8efe1;
+  }
 }
 
 button {
