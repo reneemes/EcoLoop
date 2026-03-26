@@ -1,22 +1,26 @@
 import './history.scss';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Trash2, ChevronDown } from 'lucide-react';
 
-function History({ id, keyword, result }) {
-  const [openId, setOpenId] = useState(null);
+function History({ id, keyword, result, deleteSearchHistory, openId, setOpenId }) {
+  // const [openId, setOpenId] = useState(null);
 
-  const toggleDropdown = (id) => {
+  const toggleDropdown = () => {
     setOpenId(openId === id ? null : id);
   }
 
+  const formatTitle = (string) => {
+    return string.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+  }
+
   return (
-    <div key={id} className='item'>
-      <button className='item__arrow' onClick={() => toggleDropdown(id)}>
-        <ChevronDown />
+    <div className={`item ${openId === id ? 'active' : ''}`}>
+      <button className='item__arrow' onClick={toggleDropdown}>
+        <ChevronDown className={openId === id ? 'rotate' : ''}/>
       </button>
 
-      <p className='item__title' onClick={() => toggleDropdown(id)}>
-        {keyword}
+      <p className='item__title' onClick={toggleDropdown}>
+        {formatTitle(keyword)}
       </p>
 
       {/* Dropdown for result */}
@@ -26,8 +30,9 @@ function History({ id, keyword, result }) {
         </div>
       )}
 
-      <button className='item__trash'>
-        <Trash2 />
+      {/* <button className='item__trash' onClick={() => console.log(id)}> */}
+      <button className='item__trash' onClick={() => deleteSearchHistory(id)}>
+        <Trash2/>
       </button>
     </div>
   );

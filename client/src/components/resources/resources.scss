@@ -1,0 +1,90 @@
+@use '../../styles/colors' as c;
+
+.resources {
+  display: flex;
+  flex-direction: column;
+  background-color: c.$linen;
+  gap: 20px;
+
+  &__left-panel {
+    // width: 35%;
+    text-align: center;
+    max-height: 80vh;
+    overflow-y: scroll;
+  }
+  h2 {
+    text-align: center;
+    color: c.$hunter-green;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 20px;
+  }
+
+  &__form-box {
+    display: flex;
+    justify-content: space-around;
+
+
+    input,
+    button {
+      border: 1px solid c.$sea-green;
+      padding: 3px;
+    }
+
+    button {
+      background-color: c.$tea-green;
+    }
+  }
+
+  &__map {
+    align-self: center;
+    width: 100%;
+    height: 600px;
+    border: 15px solid c.$bright-snow;
+  }
+
+  &__articles {
+    text-align: center;
+
+    h3 {
+      color: c.$hunter-green;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    &--box {
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: c.$bright-snow;
+      margin: 20px;
+      transition: transform 0.3s ease-in-out; 
+
+      img {
+        height: 200px;
+        width: 200px;
+        object-fit: contain;
+      }
+
+      a {
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+          color: c.$hunter-green;
+        }
+      }
+
+      &:hover {
+        transform: scale(1.1); 
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .resources {
+    flex-direction: row;
+  }
+}

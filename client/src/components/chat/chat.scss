@@ -2,24 +2,47 @@
 
 .chat {  
   &__messages {
+    // background-color: aqua;
+    height: 37vh;
+
     .user,
     .assistant {
       border-radius: 50px;
       background-color: c.$tea-green;
       padding: 10px 25px;
+      margin: 10px;
     }
     
     .assistant {
-      background-color: c.$sea-green;
+      background-color: c.$ai-bubble;
     }
   }
+
   &__form {
+    display: flex;
+    justify-content: center;
+
     input {
       grid-area: 2 / 2 / 3 / 3;
+      border: 1px solid c.$sea-green;
+      border-radius: 15px;
       font-size: 1rem;
+      padding: 0 10px;
+      margin: 0 0 0 5px;
+      width: 100%;
     }
+
     button {
       grid-area: 2 / 3 / 3 / 4;
+      color: c.$sea-green;
+      font-size: 2rem;
+      margin: 0 10px;
+    }
+
+    .arrow {
+      height: 1em;
+      width: 1em;
+      margin-top: 3px;
     }
   }
 }

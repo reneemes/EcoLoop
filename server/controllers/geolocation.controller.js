@@ -1,7 +1,7 @@
 const geoService = require('../services/geolocation.service');
 
 async function geocodeHandler(req, res) {
-  const { location } = req.body;
+  const { location } = req.query;
 
   if(!location) {
     return res.status(422).json({ message: 'All fields are required' });

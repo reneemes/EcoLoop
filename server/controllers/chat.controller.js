@@ -9,7 +9,7 @@ async function getResponses(req, res) {
     const userId = req.user.userId;
     const response = await chatService.index(userId)
 
-    if (!response || response.length === 0) {
+    if (!response) {
       return res.status(404).json({ message: 'Search history not found' });
     }
 
@@ -67,7 +67,7 @@ async function deleteResponse(req, res) {
     }
 
     const userId = req.user.userId;
-    const { id } = req.body;
+    const { id } = req.params;
     
     const response = await chatService.destroy(id, userId);
 

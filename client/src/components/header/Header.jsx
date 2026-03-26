@@ -45,12 +45,12 @@ function Header() {
             onClick={() => setIsOpen(false)}
           />
         </div>
-        {isAuthenticated && (
+        {/* {isAuthenticated && (
           <Link 
             className='header__nav-mobile--link' 
             to={'/resources'} 
             onClick={() => setIsOpen(false)}>Search</Link>
-        )}
+        )} */}
         <Link 
           className='header__nav-mobile--link' 
           to={'/about'} 

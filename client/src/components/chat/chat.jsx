@@ -1,9 +1,17 @@
 import './chat.scss';
 import { useState } from 'react';
+import { CircleArrowUp } from 'lucide-react';
 
 function Chat() {
   const [item, setItem] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{
+    role: 'assistant',
+    content: {
+      reply: "Hi! I'm your recycling assistant ♻️\n\nType the name of an item (like 'plastic bottle' or 'pizza box'), and I’ll tell you if it’s recyclable, what category it belongs to, and how to dispose of it properly.",
+      category: 'info',
+      recyclable: null
+    }
+  }]);
   const [loading, setLoading] = useState(false);
 
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -13,7 +21,7 @@ function Chat() {
 
     if (!item.trim()) return;
 
-    const userMessage = { role: "user", content: `Can I recycle a ${item}?` };
+    const userMessage = { role: 'user', content: `Can I recycle a ${item}?` };
     setMessages(prev => [...prev, userMessage]);
 
     try {
@@ -28,7 +36,7 @@ function Chat() {
 
       setMessages(prev => [
         ...prev,
-        { role: "assistant", content: data }
+        { role: 'assistant', content: data }
       ]);
       saveAIResponse(data)
       setLoading(false);
@@ -95,7 +103,9 @@ function Chat() {
           onChange={(e) => setItem(e.target.value)}
           placeholder='Soda Bottle'
         />
-        <button type='submit'>Send</button>
+        <button type='submit'>
+          <CircleArrowUp className='arrow'/>
+        </button>
       </form>
     </div>
   );
