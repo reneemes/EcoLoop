@@ -126,9 +126,10 @@
     margin: 0 40px 0 20px;
     font-size: 1.3rem;
   }
-
+  
   .header__title {
     grid-area: 1 / 1 / 2 / 2;
+    justify-self: flex-start;
   }
 
   .header__nav-desktop {
