@@ -6,21 +6,27 @@
   &__container {
     display: flex;
     flex-direction: column;
+    text-align: center;
   }
 
   &__header {
     text-align: center;
     padding: 100px 0;
     background-image: url('../../assets/recycling.JPG');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h2 {
       background-color: rgba(248, 248, 248, 0.5);
       font-size: 3rem;
+      width: 50%;
     }
   }
 
   &__intro {
     background-color: rgba(248, 248, 248, 0.5);
+    width: 50%;
   }
 
   &__content {
