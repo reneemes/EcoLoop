@@ -45,12 +45,6 @@ function Header() {
             onClick={() => setIsOpen(false)}
           />
         </div>
-        {/* {isAuthenticated && (
-          <Link 
-            className='header__nav-mobile--link' 
-            to={'/resources'} 
-            onClick={() => setIsOpen(false)}>Search</Link>
-        )} */}
         <Link 
           className='header__nav-mobile--link' 
           to={'/about'} 
@@ -75,7 +69,28 @@ function Header() {
 
       {/* Desktop Nav */}
       <nav className='header__nav-desktop'>
-
+        <Link 
+          className='header__nav-desktop--link' 
+          to={'/about'} 
+          onClick={() => setIsOpen(false)}>About Us</Link>
+        <Link 
+          className='header__nav-desktop--link' 
+          to={'/resources'} 
+          onClick={() => setIsOpen(false)}>Resources</Link>
+        {isAuthenticated && (
+          <Link
+            className='header__nav-desktop--link'
+            to={'/'}
+            onClick={() => handleLogout()}
+          >Logout</Link>
+        )}
+        {isAuthenticated ? 
+          <Link to={'/dashboard'} className='header__account'> 
+            <CircleUser className='header__account--btn'/>
+          </Link>
+        :
+          <Link to={'/login'} className='header__login-btn'>Login</Link>
+        }
       </nav>
     </header>
   )
