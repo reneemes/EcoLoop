@@ -185,7 +185,7 @@ function Dashboard() {
       </div>
 
       <div className='dashboard__chat'>
-        <h3 className='dashboard__chat--title'>Search</h3>
+        <h3 className='dashboard__chat--title'>Recycling Assistant</h3>
         <Chat />
       </div>
 
@@ -204,7 +204,6 @@ function Dashboard() {
             />
           ))}
         </div>
-        {/* <History history={history}/> */}
       </section>
     </section>
   )

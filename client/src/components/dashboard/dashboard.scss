@@ -89,25 +89,32 @@
 }
 
 @media screen and (min-width: 768px) {
-  .dashboard {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: .2fr repeat(2, 1fr) .2fr;
+  // .dashboard {
+  //   // display: grid;
+  //   grid-template-columns: repeat(2, 1fr);
+  //   grid-template-rows: .2fr repeat(2, 1fr) .2fr;
 
-    &__header {
-      grid-area: 1 / 1 / 2 / 3;
-      align-self: center;
-    }
+  //   &__header {
+  //     grid-area: 1 / 1 / 2 / 3;
+  //     align-self: center;
+  //   }
 
-    &__chat {
-      grid-area: 3 / 2 / 5 / 3;
-    }
+  //   &__chat {
+  //     grid-area: 3 / 2 / 5 / 3;
+  //   }
     
-    &__history {
-      grid-area: 3 / 1 / 5 / 2;
-      height: 50vh;
-      // height: 512px;
-      overflow-y: scroll;
-    }
-  }
+  //   &__history {
+  //     grid-area: 3 / 1 / 5 / 2;
+  //     height: 50vh;
+  //     min-width: 0;
+  //     display: flex;
+  //     flex-direction: column;
+
+  //     &--grid {
+  //       flex: 1;
+  //       overflow-y: auto;
+  //       min-width: 0;
+  //     }
+  //   }
+  // }
 }

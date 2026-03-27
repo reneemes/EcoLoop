@@ -110,10 +110,6 @@ function Login() {
             </div>
           </div>
 
-          {/* <div className='auth__login-form--box-three'>
-            <label>Show Password</label>
-          </div> */}
-
           <p className='auth__login-form--box-four'>
             Forgot Password?
           </p>
