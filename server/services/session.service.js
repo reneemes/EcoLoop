@@ -13,7 +13,7 @@ async function show(userId) {
   );
 
   if (result.length === 0) {
-    throw new Error("User not found");
+    return null;
   }
 
   const user = result[0];
