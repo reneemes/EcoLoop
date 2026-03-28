@@ -9,8 +9,10 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import EPAImg from "../../assets/EPA-img.jpg";
-import plasticsForChange from '../../assets/plastics-for-change.jpg';
+import Recycle from '../../assets/Recycling-img.jpg';
+import Contamination from '../../assets/recycling-contamination.jpg';
+import Symbols from '../../assets/Recycling-Symbols.jpg';
+import Cans from '../../assets/cans.jpg';
 
 // Fix Leaflet icon issue (outside component)
 delete L.Icon.Default.prototype._getIconUrl;
@@ -58,6 +60,37 @@ const demoFacilities = [
     lat: 35.2574,
     lng: -80.9123,
     phone: "(980) 314-3867",
+  },
+];
+
+const articles = [
+  {
+    title: "How Do I Recycle Common Recyclables?",
+    link: "https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables",
+    source: "EPA - United States Environmental Protection Agency",
+    image: Recycle,
+    alt: "EPA recycling guide illustration"
+  },
+  {
+    title: "What is Recycling Contamination, and Why Does it Matter?",
+    link: "https://www.rubicon.com/blog/recycling-contamination/",
+    source: "Rubicon",
+    image: Contamination,
+    alt: "Plastic in landfills"
+  },
+  {
+    title: "Understanding recycling symbols",
+    link: "https://www.recyclenow.com/how-to-recycle/recycling-symbols",
+    source: "Recycle Now",
+    image: Symbols,
+    alt: "Recycling symbols"
+  },
+  {
+    title: "Metal Can Recycling Impact Calculator",
+    link: "https://canrecyclingimpact.com/",
+    source: "Can Manufacturers Institute",
+    image: Cans,
+    alt: "Metal drink cans"
   },
 ];
 
@@ -216,6 +249,7 @@ function Resources() {
             type="number"
             min={1}
             value={radius}
+            placeholder="Radius"
             onChange={(e) => setRadius(e.target.value)}
             />
 
@@ -265,31 +299,57 @@ function Resources() {
         </MapContainer>
       </div>
 
-      <div className="resources__articles">
+      <section className="resources__articles" aria-labelledby="resources-heading">
+        <h3 id="resources-heading">Helpful Resources</h3>
+
+        <ul className="resources__articles--container">
+          {articles.map((article, index) => (
+            <li key={index}>
+              <article className="resources__articles--box">
+                <figure>
+                  <img src={article.image} alt={article.alt} />
+                </figure>
+                <h4>
+                  <a href={article.link} target="_blank" rel="noopener noreferrer">
+                    {article.title}
+                  </a>
+                </h4>
+                <p>{article.source}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </section>
+      {/* <section className="resources__articles">
         <h3>Helpful Resources</h3>
-        <div className="resources__articles--box">
-          <img src={EPAImg}/>
-          <a href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">
-            How Do I Recycle Common Recyclables?
-          </a>
-          <p>EPA - United States Environmental Protection Agency</p>
+        <div className="resources__articles--container">
+          <div className="resources__articles--box">
+            <img src={EPAImg}/>
+            <a href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">
+              How Do I Recycle Common Recyclables?
+            </a>
+            <p>EPA - United States Environmental Protection Agency</p>
+          </div>
+          <div className="resources__articles--box">
+            <img src={plasticsForChange}/>
+            <a href="https://www.plasticsforchange.org/blog/which-plastic-can-be-recycled">
+              Which Plastic Can Be Recycled?
+            </a>
+            <p>Plastics for Change</p>
+          </div>
+          <div className="resources__articles--box">
+            <img src={Contamination}/>
+            <a href="https://www.rubicon.com/blog/recycling-contamination/">
+              What is Recycling Contamination, and Why Does it Matter?
+            </a>
+            <p>Rubicon</p>
+          </div>
+          <div className="resources__articles--box">
+            <a href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">How Do I Recycle Common Recyclables</a>
+            <p>EPA - United States Environmental Protection Agency</p>
+          </div>
         </div>
-        <div className="resources__articles--box">
-          <img src={plasticsForChange}/>
-          <a href="https://www.plasticsforchange.org/blog/which-plastic-can-be-recycled">
-            Which Plastic Can Be Recycled?
-          </a>
-          <p>Plastics for Change</p>
-        </div>
-        <div className="resources__articles--box">
-          <a href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">How Do I Recycle Common Recyclables</a>
-          <p>EPA - United States Environmental Protection Agency</p>
-        </div>
-        <div className="resources__articles--box">
-          <a href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">How Do I Recycle Common Recyclables</a>
-          <p>EPA - United States Environmental Protection Agency</p>
-        </div>
-      </div>
+      </section> */}
     </div>
   );
 }

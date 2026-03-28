@@ -7,14 +7,14 @@ import { useEffect, useState, useMemo } from 'react';
 
 function Dashboard() {
   const { user, isAuthenticated } = useAuth();
-  const [stats, setStats] = useState();
+  const [stats, setStats] = useState([]);
   const [saveError, setSaveError] = useState();
 
-  const [history, setHistory] = useState([]);
-  const [openId, setOpenId] = useState(null);
-
+  // const [history, setHistory] = useState([]);
+  // const [openId, setOpenId] = useState(null);
+  // console.log('stats', stats)
   // Form State
-  const [itemType, setItemType] = useState('');
+  const [itemType, setItemType] = useState('Plastic');
   const [itemName, setItemName] = useState('');
   const [itemAmount, setItemAmount] = useState('');
   const [recycleDate, setRecycleDate] = useState('');
@@ -25,7 +25,7 @@ function Dashboard() {
     if (!isAuthenticated) return;
 
     fetchRecycleStats();
-    fetchSearchHistory();
+    // fetchSearchHistory();
   }, [apiUrl, isAuthenticated]);
 
   async function fetchRecycleStats() {
@@ -33,11 +33,6 @@ function Dashboard() {
       method: 'GET',
       credentials: 'include',
     });
-    
-    // if (!res.ok) {
-    //   const error = await res.json();
-    //   throw new Error(error.message || 'Fetch failed');
-    // }
     
     const data = await res.json();
     setStats(data);
@@ -48,11 +43,6 @@ function Dashboard() {
       method: 'GET',
       credentials: 'include',
     });
-
-    // if (!res.ok) {
-    //   const error = await res.json();
-    //   throw new Error(error.message || 'Fetch failed');
-    // }
     
     const data = await res.json();
     setHistory(data);
@@ -76,15 +66,26 @@ function Dashboard() {
       cardboard: "#c7ceea",
     };
 
+    // return [
+    //   ["Material", "Total Recycled", { role: "style" }],
+    //   ...Object.entries(counts).map(([type, total]) => [
+    //     type[0].toUpperCase() + type.slice(1),
+    //     total,
+    //     // '#a8e6cf', // fallback color
+    //     typeColors[type] || "#cccccc",
+    //   ])
+    // ];
     return [
       ["Material", "Total Recycled", { role: "style" }],
-      ...Object.entries(counts).map(([type, total]) => [
+      ...Object.entries(counts).map(([type, total]) => {
+        const color = typeColors[type.toLowerCase()] || "#cccccc";
+
+      return [
         type[0].toUpperCase() + type.slice(1),
         total,
-        // '#a8e6cf', // fallback color
-        typeColors[type] || "#cccccc",
-      ])
-    ];
+        `color: ${color}`,
+      ];
+    })]
   }
 
   const submitRecycling = async () => {
@@ -101,38 +102,30 @@ function Dashboard() {
         }),
       });
 
-      // if (!res.ok) {
-      //   throw new Error('Failed to save recycling');
-      // }
-
       fetchRecycleStats();
     } catch (error) {
       setSaveError(error)
     }
   }
 
-  const deleteSearchHistory = async (id) => {
-    try {
-      await fetch(`${apiUrl}/api/v1/chat/${id}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      })
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // const deleteSearchHistory = async (id) => {
+  //   try {
+  //     await fetch(`${apiUrl}/api/v1/chat/${id}`, {
+  //       method: 'DELETE',
+  //       credentials: 'include',
+  //     })
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <section className='dashboard'>
-      <h1 className='dashboard__header'>{user.username}'s Dashboard</h1>
-
-      <div className='dashboard__stat-block'>
-        <MyChart className='chart' data={formatStats(stats)}/>
-      </div>
-
+      <h1 className='dashboard__header'>Let's Get Recycling!</h1>
+    {/* FORM */}
       <div className='dashboard__recycling'>
         <form className='dashboard__recycling--form'>
-          <h3 className='dashboard__recycling--header'>Log Recycling</h3>
+          <h3 className='dashboard__recycling--header'>Save Your Recycling History</h3>
 
           <div className='dashboard__recycling--box-type'>
             <label htmlFor='type'>Type</label>
@@ -141,11 +134,11 @@ function Dashboard() {
               value={itemType}
               onChange={(e) => setItemType(e.target.value)}
             >
-              <option>Plastic</option>
-              <option>Glass</option>
-              <option>Paper</option>
-              <option>Metal</option>
-              <option>Cardboard</option>
+              <option value='Plastic'>Plastic</option>
+              <option value='Glass'>Glass</option>
+              <option value='Paper'>Paper</option>
+              <option value='Aluminum'>Aluminum</option>
+              <option value='Cardboard'>Cardboard</option>
             </select>
           </div>
 
@@ -159,7 +152,7 @@ function Dashboard() {
           </div>
 
           <div className='dashboard__recycling--box-amount'>
-            <label htmlFor='amount'>Amount</label>
+            <label htmlFor='amount'>Quantity</label>
             <input
               id='amount'
               value={itemAmount}
@@ -184,12 +177,49 @@ function Dashboard() {
         </form>
       </div>
 
+    {/* RECYCLING HISTORY */}
+    <section className='dashboard__r-history'>
+      <h3>Recycling History</h3>
+      <div className='table-container'>
+        <table>
+          <thead>
+            <tr>
+              <th>Item Type</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stats.map((s, index) => (
+              <tr key={index}>
+                <td>{s.item_type}</td>
+                <td>{s.item_name}</td>
+                <td>{s.quantity}</td>
+                <td>{new Date(s.recycled_at).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {/* CHART */}
+      <div className='dashboard__stat-block'>
+        <MyChart className='chart' data={formatStats(stats)}/>
+      </div>
+
       <div className='dashboard__chat'>
-        <h3 className='dashboard__chat--title'>Search</h3>
+        <h3 className='dashboard__chat--title'>Recycling Assistant</h3>
         <Chat />
       </div>
 
-      <section className='dashboard__history'>
+      {/* <section className='dashboard__history'>
         <h3>Search History</h3>
         <div className='dashboard__history--grid'>
           {history.map((result) => (
@@ -204,8 +234,7 @@ function Dashboard() {
             />
           ))}
         </div>
-        {/* <History history={history}/> */}
-      </section>
+      </section> */}
     </section>
   )
 }

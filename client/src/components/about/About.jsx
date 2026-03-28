@@ -19,7 +19,7 @@ function About() {
           </p>
 
           <p>
-            <strong>That’s why we built this app.</strong>
+            <strong>That’s why we built EcoLoop.</strong>
           </p>
 
           <p>

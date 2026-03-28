@@ -50,8 +50,8 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 75px) 25px 75px 50px;
     grid-column-gap: 0px;
-    // grid-row-gap: 15px;
     padding-bottom: 50px;
+    max-width: 496px;
 
     &--header {
       color: c.$bright-snow;
@@ -69,6 +69,7 @@
       background-color: c.$bright-snow;
       height: 53px;
       width: 80%;
+      max-width: 300px;
       justify-self: center;
       align-self: center;
 
@@ -90,9 +91,6 @@
     &--box-two {
       grid-area: 3 / 1 / 4 / 3;
     }
-    // &--box-three {
-    //   grid-area: 4 / 1 / 5 / 2;
-    // }
     &--box-four {
       grid-area: 4 / 2 / 5 / 3;
       justify-self: flex-start;
@@ -130,6 +128,7 @@
       width: 80%;
       justify-self: center;
       align-self: center;
+      max-width: 300px;
 
       transition: background-color 1s;
       transition: color 1s;
@@ -207,10 +206,21 @@
   width: 100%;
 }
 
+@media screen and (min-width: 496px) {
+  .auth__signup-form,
+  .auth__login-form {
+    border-radius: 100px 100px 0 0;
+    align-self: center;
+    margin: 0 auto;
+  }
+
+}
+
 @media screen and (min-width: 768px) {
   .auth__signup-form,
   .auth__login-form {
     height: 100%;
+    // max-width: 496px;
   }
 
   .auth__login-form--box-five,

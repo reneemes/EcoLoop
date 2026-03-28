@@ -1,9 +1,14 @@
 @use '../../styles/colors' as c;
 
-.chat {  
+.chat {
+  border-radius: 10px;
+  border: 2px solid c.$hunter-green;
+  background-color: c.$soft-linen;
+  padding: 5px;
+
   &__messages {
-    // background-color: aqua;
-    height: 37vh;
+    height: 325px;
+    overflow: auto;
 
     .user,
     .assistant {
@@ -45,4 +50,23 @@
       margin-top: 3px;
     }
   }
+}
+
+.chat__messages::-webkit-scrollbar {
+  width: 10px;              /* vertical scrollbar */
+  height: 10px;             /* horizontal scrollbar */
+}
+
+.chat__messages::-webkit-scrollbar-track {
+  background: c.$soft-linen;
+  border-radius: 10px;
+}
+
+.chat__messages::-webkit-scrollbar-thumb {
+  background: c.$sea-green;      /* your hunter green vibe */
+  border-radius: 10px;
+}
+
+.chat__messages::-webkit-scrollbar-thumb:hover {
+  background: #24473d;
 }
