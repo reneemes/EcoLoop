@@ -66,14 +66,26 @@ function Dashboard() {
       cardboard: "#c7ceea",
     };
 
+    // return [
+    //   ["Material", "Total Recycled", { role: "style" }],
+    //   ...Object.entries(counts).map(([type, total]) => [
+    //     type[0].toUpperCase() + type.slice(1),
+    //     total,
+    //     // '#a8e6cf', // fallback color
+    //     typeColors[type] || "#cccccc",
+    //   ])
+    // ];
     return [
       ["Material", "Total Recycled", { role: "style" }],
-      ...Object.entries(counts).map(([type, total]) => [
+      ...Object.entries(counts).map(([type, total]) => {
+        const color = typeColors[type.toLowerCase()] || "#cccccc";
+
+      return [
         type[0].toUpperCase() + type.slice(1),
         total,
-        typeColors[type] || "#cccccc",
-      ])
-    ];
+        `color: ${color}`,
+      ];
+    })]
   }
 
   const submitRecycling = async () => {
@@ -168,27 +180,33 @@ function Dashboard() {
     {/* RECYCLING HISTORY */}
     <section className='dashboard__r-history'>
       <h3>Recycling History</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Item Type</th>
-            <th>Item Name</th>
-            <th>Quantity</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {stats.map((s, index) => {
-            {console.log(s)}
-            <tr key={index}>
-              <td>{s.item_type}</td>
-              <td>{s.item_name}</td>
-              <td>{s.quantity}</td>
-              <td>{s.recycled_at}</td>
+      <div className='table-container'>
+        <table>
+          <thead>
+            <tr>
+              <th>Item Type</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Date</th>
             </tr>
-          })}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {stats.map((s, index) => (
+              <tr key={index}>
+                <td>{s.item_type}</td>
+                <td>{s.item_name}</td>
+                <td>{s.quantity}</td>
+                <td>{new Date(s.recycled_at).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
 
     {/* CHART */}
