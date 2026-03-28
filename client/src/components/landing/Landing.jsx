@@ -1,12 +1,9 @@
 import './Landing.scss';
 import { Link } from 'react-router-dom';
-import Earth from '../../assets/earth.JPG';
-import Nature from '../../assets/nature.JPG';
-import Recycle from '../../assets/recycling.JPG';
-import Green from '../../assets/green.JPG';
 import RecycleIcon from '../../assets/recycle-icon.png';
 import Lightbulb from '../../assets/Lightbulb.png';
 import Plant from '../../assets/Plant.png';
+import Trees from '../../assets/trees.jpg';
 
 function Landing() {
   return (
@@ -15,11 +12,8 @@ function Landing() {
 
       {/* Hero */}
       <div className='landing__hero'>
-        <img className='landing__hero--one' src={Nature}/>
-        <div className='landing__hero--two'></div>
-        <img className='landing__hero--three' src={Earth}/>
-        <img className='landing__hero--four' src={Recycle}/>
-        <img className='landing__hero--five' src={Green}/>
+        <img className='landing__hero--img' src={Trees}/>
+
         <div className='landing__hero--text'>
           <p>
             Take the guesswork out of recycling with an app designed 
@@ -72,22 +66,26 @@ function Landing() {
       <section className='landing__how' aria-labelledby='how-heading'>
         <h2 id='how-heading'>How it works</h2>
 
-        <ul className='landing__how--steps'>
-          <li>
-            <h3>1. Search your item</h3>
-            <p>Type in what you want to recycle and get instant guidance.</p>
-          </li>
+        {/* <div> */}
+          {/* <img src={RecyclingBin}/> */}
+          <ul className='landing__how--steps'>
+            <li>
+              <h3>1. Search your item</h3>
+              <p>Type in what you want to recycle and get instant guidance.</p>
+            </li>
 
-          <li>
-            <h3>2. Find a nearby location</h3>
-            <p>We show you the closest recycling centers and drop-off points.</p>
-          </li>
+            <li>
+              <h3>2. Find a nearby location</h3>
+              <p>We show you the closest recycling centers and drop-off points.</p>
+            </li>
 
-          <li>
-            <h3>3. Recycle with confidence</h3>
-            <p>Follow simple instructions and make a real environmental impact.</p>
-          </li>
-        </ul>
+            <li>
+              <h3>3. Recycle with confidence</h3>
+              <p>Follow simple instructions and make a real environmental impact.</p>
+            </li>
+          </ul>
+          {/* <img src={BigEcoLoop}/> */}
+        {/* </div> */}
       </section>
 
       {/* Testimonials */}

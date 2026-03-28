@@ -20,28 +20,28 @@
 
 
     img, div {
-      border-radius: 15px;
+      // border-radius: 15px;
       height: 100%;
       width: 100%;
       object-fit: cover;
     }
 
-    &--one {
-      grid-area: 2 / 1 / 4 / 3;
-    }
-    &--two {
-      grid-area: 3 / 3 / 4 / 4;
-      background-color: c.$sea-green;
-    }
-    &--three {
-      grid-area: 3 / 4 / 5 / 7;
-    }
-    &--four {
-      grid-area: 3 / 7 / 4 / 8;
-    }
-    &--five {
-      grid-area: 2 / 8 / 4 / 10;
-    }
+    // &--one {
+    //   grid-area: 2 / 1 / 4 / 3;
+    // }
+    // &--two {
+    //   grid-area: 3 / 3 / 4 / 4;
+    //   background-color: c.$sea-green;
+    // }
+    // &--three {
+    //   grid-area: 3 / 4 / 5 / 7;
+    // }
+    // &--four {
+    //   grid-area: 3 / 7 / 4 / 8;
+    // }
+    // &--five {
+    //   grid-area: 2 / 8 / 4 / 10;
+    // }
     &--text {
       grid-area: 1 / 3 / 2 / 8;
       text-align: center;
@@ -143,6 +143,22 @@
   display: none;
 }
 // DESKTOP
-@media screen and (min-width: 768px) {
-  
+@media screen and (min-width: 1024px) {
+  .landing {
+    &__hero {
+      grid-template-columns: 1fr .5fr 1.5fr 1fr .5fr 1fr 1.5fr .5fr 1fr;
+      grid-template-rows: .50fr .5fr 1fr .5fr;
+      height: 55vh;
+        
+      &--img {
+        grid-area: 2 / 1 / 5 / 10;
+      }
+
+    }
+
+    &__benefits--list {
+      flex-direction: row;
+    }
+
+  }
 }
