@@ -29,24 +29,43 @@ function Dashboard() {
   }, [apiUrl, isAuthenticated]);
 
   async function fetchRecycleStats() {
-    const res = await fetch(`${apiUrl}/api/v1/recycle`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-    
-    const data = await res.json();
-    setStats(data);
+    try {
+      const res = await fetch(`${apiUrl}/api/v1/recycle`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!res.ok) {
+        console.error("Failed to fetch recycle stats:", res.status);
+        setStats([]); // reset stats to empty array
+        return;
+      }
+
+      const data = await res.json();
+
+      // Ensure data is an array
+      if (!Array.isArray(data)) {
+        console.warn("Expected array from API but got:", data);
+        setStats([]);
+        return;
+      }
+
+      setStats(data);
+    } catch (error) {
+      console.error(error);
+      setStats([]);
+    }
   }
 
-  async function fetchSearchHistory() {
-    const res = await fetch(`${apiUrl}/api/v1/chat`, {
-      method: 'GET',
-      credentials: 'include',
-    });
+  // async function fetchSearchHistory() {
+  //   const res = await fetch(`${apiUrl}/api/v1/chat`, {
+  //     method: 'GET',
+  //     credentials: 'include',
+  //   });
     
-    const data = await res.json();
-    setHistory(data);
-  }
+  //   const data = await res.json();
+  //   setHistory(data);
+  // }
   
   const formatStats = (items = []) => {
     const counts = items
