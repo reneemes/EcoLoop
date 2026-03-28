@@ -169,30 +169,30 @@ function Resources() {
     }
   };
 
-  const formatResults = (data) => {
-    return (
-      data?.elements
-        ?.map((el) => {
-          const tags = el.tags || {};
+  // const formatResults = (data) => {
+  //   return (
+  //     data?.elements
+  //       ?.map((el) => {
+  //         const tags = el.tags || {};
 
-          const street =
-            tags["addr:housenumber"] && tags["addr:street"]
-              ? `${tags["addr:housenumber"]} ${tags["addr:street"]}`
-              : null;
+  //         const street =
+  //           tags["addr:housenumber"] && tags["addr:street"]
+  //             ? `${tags["addr:housenumber"]} ${tags["addr:street"]}`
+  //             : null;
 
-          return {
-            name: tags.name || "No Name",
-            street,
-            hours: tags.opening_hours || null,
-            phone: tags.phone || null,
-            website: tags.website || null,
-            lat: el.lat,
-            lng: el.lon,
-          };
-        })
-        .filter((c) => c.street) || []
-    );
-  };
+  //         return {
+  //           name: tags.name || "No Name",
+  //           street,
+  //           hours: tags.opening_hours || null,
+  //           phone: tags.phone || null,
+  //           website: tags.website || null,
+  //           lat: el.lat,
+  //           lng: el.lon,
+  //         };
+  //       })
+  //       .filter((c) => c.street) || []
+  //   );
+  // };
 
   // const loadFacilities = async (search, rad) => {
   //   setLoading(true);
