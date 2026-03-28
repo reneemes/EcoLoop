@@ -1,13 +1,5 @@
 const sessionService = require('../services/session.service.js');
 
-const isProd = process.env.NODE_ENV === 'production';
-const cookieOptions = {
-  httpOnly: true,
-  secure: isProd,
-  sameSite: isProd ? 'none' : 'lax',
-  path: '/',
-};
-
 async function checkSession(req, res) {
   try {
     if (!req.user || !req.user.userId) {
@@ -37,7 +29,10 @@ async function createSession(req, res) {
     
     res
       .cookie('token', token, {
-        cookieOptions,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'none',
+        path: '/',
         maxAge: 3600000,
       })
       .status(201)
