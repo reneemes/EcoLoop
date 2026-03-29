@@ -1,10 +1,7 @@
 import './history.scss';
-// import { useState } from 'react';
 import { Trash2, ChevronDown } from 'lucide-react';
 
 function History({ id, keyword, result, deleteSearchHistory, openId, setOpenId }) {
-  // const [openId, setOpenId] = useState(null);
-
   const toggleDropdown = () => {
     setOpenId(openId === id ? null : id);
   }
@@ -30,7 +27,6 @@ function History({ id, keyword, result, deleteSearchHistory, openId, setOpenId }
         </div>
       )}
 
-      {/* <button className='item__trash' onClick={() => console.log(id)}> */}
       <button className='item__trash' onClick={() => deleteSearchHistory(id)}>
         <Trash2/>
       </button>

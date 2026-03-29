@@ -4,15 +4,17 @@ import MyChart from '../chart/chart';
 import Chat from '../chat/chat';
 import History from '../history/history';
 import { useEffect, useState, useMemo } from 'react';
+import { X } from 'lucide-react';
 
 function Dashboard() {
   const { user, isAuthenticated } = useAuth();
   const [stats, setStats] = useState([]);
   const [saveError, setSaveError] = useState();
 
-  // const [history, setHistory] = useState([]);
-  // const [openId, setOpenId] = useState(null);
-  // console.log('stats', stats)
+  const [history, setHistory] = useState([]);
+  const [openId, setOpenId] = useState(null);
+  const [modelOpen, setModalOpen] = useState(false);
+
   // Form State
   const [itemType, setItemType] = useState('Plastic');
   const [itemName, setItemName] = useState('');
@@ -25,7 +27,7 @@ function Dashboard() {
     if (!isAuthenticated) return;
 
     fetchRecycleStats();
-    // fetchSearchHistory();
+    fetchSearchHistory();
   }, [apiUrl, isAuthenticated]);
 
   async function fetchRecycleStats() {
@@ -37,7 +39,7 @@ function Dashboard() {
 
       if (!res.ok) {
         console.error("Failed to fetch recycle stats:", res.status);
-        setStats([]); // reset stats to empty array
+        setStats([]);
         return;
       }
 
@@ -57,15 +59,15 @@ function Dashboard() {
     }
   }
 
-  // async function fetchSearchHistory() {
-  //   const res = await fetch(`${apiUrl}/api/v1/chat`, {
-  //     method: 'GET',
-  //     credentials: 'include',
-  //   });
+  async function fetchSearchHistory() {
+    const res = await fetch(`${apiUrl}/api/v1/chat`, {
+      method: 'GET',
+      credentials: 'include',
+    });
     
-  //   const data = await res.json();
-  //   setHistory(data);
-  // }
+    const data = await res.json();
+    setHistory(data);
+  }
   
   const formatStats = (items = []) => {
     const counts = items
@@ -85,15 +87,6 @@ function Dashboard() {
       cardboard: "#c7ceea",
     };
 
-    // return [
-    //   ["Material", "Total Recycled", { role: "style" }],
-    //   ...Object.entries(counts).map(([type, total]) => [
-    //     type[0].toUpperCase() + type.slice(1),
-    //     total,
-    //     // '#a8e6cf', // fallback color
-    //     typeColors[type] || "#cccccc",
-    //   ])
-    // ];
     return [
       ["Material", "Total Recycled", { role: "style" }],
       ...Object.entries(counts).map(([type, total]) => {
@@ -127,16 +120,16 @@ function Dashboard() {
     }
   }
 
-  // const deleteSearchHistory = async (id) => {
-  //   try {
-  //     await fetch(`${apiUrl}/api/v1/chat/${id}`, {
-  //       method: 'DELETE',
-  //       credentials: 'include',
-  //     })
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  const deleteSearchHistory = async (id) => {
+    try {
+      await fetch(`${apiUrl}/api/v1/chat/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <section className='dashboard'>
@@ -234,12 +227,27 @@ function Dashboard() {
       </div>
 
       <div className='dashboard__chat'>
-        <h3 className='dashboard__chat--title'>Recycling Assistant</h3>
+        <div className='dashboard__chat--top'>
+          <h3 className='dashboard__chat--title'>Recycling Assistant</h3>
+          <button 
+            className='dashboard__chat--btn'
+            onClick={() => setModalOpen(true)}>Search History</button>
+        </div>
         <Chat />
       </div>
 
-      {/* <section className='dashboard__history'>
-        <h3>Search History</h3>
+      {/* HISTORY MODEL */}
+      <section className={`dashboard__history ${modelOpen ? 'open' : ''}`}>
+        <div className="dashboard__history--header">
+          <h3>Search History</h3>
+          {/* <button onClick={() => setModalOpen(false)}>Close</button> */}
+          <div className='close-icon-wrapper'>
+            <X 
+              id='close-model-btn'
+              onClick={() => setModalOpen(false)}
+            />
+          </div>
+        </div>
         <div className='dashboard__history--grid'>
           {history.map((result) => (
             <History 
@@ -253,7 +261,7 @@ function Dashboard() {
             />
           ))}
         </div>
-      </section> */}
+      </section>
     </section>
   )
 }

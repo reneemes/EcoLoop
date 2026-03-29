@@ -1,11 +1,34 @@
 import './Landing.scss';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import RecycleIcon from '../../assets/recycle-icon.png';
 import Lightbulb from '../../assets/Lightbulb.png';
 import Plant from '../../assets/Plant.png';
 import Trees from '../../assets/trees.jpg';
 
 function Landing() {
+  const [index, setIndex] = useState(0);
+  const [fade, setFade] = useState(true);
+
+  const reviews = [
+    "I finally know what I can recycle. This app made it so easy.",
+    "Honestly didn’t realize how much I was recycling wrong until I tried this.",
+    "Clean design, fast answers, no confusion."
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false); // start fade out
+
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % reviews.length);
+        setFade(true); // fade back in
+      }, 500); // match CSS duration
+    }, 5000); // change every 3s
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className='landing'>
       <h1 className='landing__headline'>Recycle Smarter. Live Greener.</h1>
@@ -91,8 +114,8 @@ function Landing() {
       {/* Testimonials */}
       <section className='landing__testimonials'>
         <h2>What people are saying</h2>
-        <blockquote>
-          "I finally know what I can recycle. This app made it so easy.""
+        <blockquote className={`slide ${fade ? "active" : ""}`}>
+          "{reviews[index]}"
         </blockquote>
       </section>
 
