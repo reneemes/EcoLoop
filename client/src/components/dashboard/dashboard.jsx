@@ -120,6 +120,23 @@ function Dashboard() {
     }
   }
 
+  const handleSaveChat = async (data, item) => {
+    // if (data.category === 'other') return;
+    console.log(data.reply)
+    await fetch(`${apiUrl}/api/v1/chat/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        item: item,
+        chat: data.reply,
+      }),
+    });
+
+    // refresh history after saving
+    fetchSearchHistory();
+  };
+
   const deleteSearchHistory = async (id) => {
     try {
       await fetch(`${apiUrl}/api/v1/chat/${id}`, {
@@ -226,6 +243,7 @@ function Dashboard() {
         <MyChart className='chart' data={formatStats(stats)}/>
       </div>
 
+    {/* CHAT */}
       <div className='dashboard__chat'>
         <div className='dashboard__chat--top'>
           <h3 className='dashboard__chat--title'>Recycling Assistant</h3>
@@ -233,7 +251,7 @@ function Dashboard() {
             className='dashboard__chat--btn'
             onClick={() => setModalOpen(true)}>Search History</button>
         </div>
-        <Chat />
+        <Chat onSaveChat={handleSaveChat}/>
       </div>
 
       {/* HISTORY MODEL */}
@@ -249,7 +267,7 @@ function Dashboard() {
           </div>
         </div>
         <div className='dashboard__history--grid'>
-          {history.map((result) => (
+          {Array.isArray(history) && history.map((result) => (
             <History 
               key={result.id}
               id={result.id} 
@@ -260,6 +278,17 @@ function Dashboard() {
               setOpenId={setOpenId}
             />
           ))}
+          {/* {history.map((result) => (
+            <History 
+              key={result.id}
+              id={result.id} 
+              keyword={result.keyword} 
+              result={result.result}
+              deleteSearchHistory={deleteSearchHistory}
+              openId={openId}
+              setOpenId={setOpenId}
+            />
+          ))} */}
         </div>
       </section>
     </section>

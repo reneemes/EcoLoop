@@ -10,6 +10,11 @@
   &__messages {
     height: 325px;
     overflow: auto;
+    white-space: pre-line;
+
+    p {
+      padding: 5px 0;
+    }
 
     .user,
     .assistant {
@@ -51,6 +56,16 @@
       margin-top: 3px;
     }
   }
+}
+
+.typing {
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
 }
 
 .chat__messages::-webkit-scrollbar {

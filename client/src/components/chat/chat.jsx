@@ -1,20 +1,29 @@
 import './chat.scss';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { CircleArrowUp } from 'lucide-react';
 
-function Chat() {
+function Chat({ onSaveChat }) {
   const [item, setItem] = useState('');
   const [messages, setMessages] = useState([{
     role: 'assistant',
     content: {
-      reply: "Hi! I'm your recycling assistant ♻️\n\nType the name of an item (like 'plastic bottle' or 'pizza box'), and I’ll tell you if it’s recyclable, what category it belongs to, and how to dispose of it properly.",
-      category: 'info',
+      reply: `Hi! I'm your recycling assistant ♻️\n\nType the name of an item (like "plastic bottle" or "pizza box"), and I’ll tell you if it’s recyclable, what category it belongs to, and how to dispose of it properly.`,
+      category: 'other',
       recyclable: null
     }
   }]);
   const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
 
   const apiUrl = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const container = messagesEndRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+      container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+    }
+  }, [messages, loading]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -23,6 +32,7 @@ function Chat() {
 
     const userMessage = { role: 'user', content: `Can I recycle a ${item}?` };
     setMessages(prev => [...prev, userMessage]);
+    setLoading(true);
 
     try {
       const res = await fetch(`${apiUrl}/api/v1/chat`, {
@@ -31,14 +41,15 @@ function Chat() {
         credentials: 'include',
         body: JSON.stringify({ item }),
       });
-      setLoading(true);
       const data = await res.json();
 
       setMessages(prev => [
         ...prev,
         { role: 'assistant', content: data }
       ]);
-      saveAIResponse(data)
+      // saveAIResponse(data)
+      onSaveChat(data, item);
+      setItem('');
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -48,22 +59,9 @@ function Chat() {
     setItem('');
   };
 
-  const saveAIResponse = async (message) => {
-    if (message.content.category !== 'other') {
-      await fetch('/api/v1/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          item,
-          chat: message.content.reply,
-        }),
-      });
-    }
-  };
-
   return (
     <div className='chat'>
-      <div className='chat__messages'>
+      <div className='chat__messages' ref={messagesEndRef}>
         {messages.map((msg, i) => (
           <div key={i} className={`chat__msg ${msg.role}`}>
             
@@ -74,6 +72,29 @@ function Chat() {
 
             {/* AI MESSAGE */}
             {msg.role === 'assistant' && (
+              <>
+                {msg.content.reply ? (
+                  <>
+                    <p>{msg.content.reply}</p>
+
+                    {msg.content.category !== 'other' && (
+                      <div className='chat__meta'>
+                        <p className={`badge ${msg.content.category}`}>
+                          Category: {msg.content.category}
+                        </p>
+
+                        <p className={msg.content.recyclable ? 'true' : 'no'}>
+                          {msg.content.recyclable ? '♻️ Recyclable' : '🗑️ Trash'}
+                        </p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <p>An error occurred processing your request.</p>
+                )}
+              </>
+            )}
+            {/* {msg.role === 'assistant' && (
               <>
               {!msg.content.reply && (
                 <p>An error occurred processing your request. Please try again later.</p>
@@ -90,12 +111,24 @@ function Chat() {
                   </p>
                 </div>)}
               </>
-            )}
+            )} */}
           </div>
         ))}
+
+        {loading && (
+          <div className='chat__msg assistant'>
+            <p className="typing">•••</p>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
 
-      {loading && <div className='chat__msg assistant'>Thinking...</div>}
+      {/* {loading && <div className='chat__msg assistant'>Thinking...</div>} */}
+      {/* {loading && (
+        <div className='chat__msg assistant'>
+          <p className="typing">•••</p>
+        </div>
+      )} */}
 
       <form onSubmit={sendMessage} className='chat__form'>
         <input
