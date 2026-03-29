@@ -114,7 +114,7 @@ function Landing() {
       {/* Testimonials */}
       <section className='landing__testimonials'>
         <h2>What people are saying</h2>
-        <blockquote className={`slide ${fade ? "active" : ""}`}>
+        <blockquote className={`slide ${fade ? "active-review" : ""}`}>
           "{reviews[index]}"
         </blockquote>
       </section>
