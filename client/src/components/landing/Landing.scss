@@ -20,7 +20,6 @@
 
 
     img, div {
-      // border-radius: 15px;
       height: 100%;
       width: 100%;
       object-fit: cover;
@@ -95,10 +94,6 @@
     color: c.$hunter-green;
     text-align: center;
     padding: 40px 30px;
-
-    // blockquote {
-    //   transition: opacity 0.3s ease;
-    // }
   }
 
   &__cta {
@@ -131,10 +126,6 @@
   }
 }
 
-// .hidden {
-//   display: none;
-// }
-
 .slide {
   transition: all 0.5s ease;
   opacity: 0;
@@ -162,7 +153,6 @@
       &--img {
         grid-area: 2 / 1 / 5 / 10;
       }
-
     }
 
     &__benefits--list {
@@ -172,6 +162,5 @@
         padding: 20px 50px;
       }
     }
-
   }
 }

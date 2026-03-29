@@ -7,10 +7,11 @@ import { useEffect, useState, useMemo } from 'react';
 import { X } from 'lucide-react';
 
 function Dashboard() {
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [stats, setStats] = useState([]);
   const [saveError, setSaveError] = useState();
 
+  // Search History State
   const [history, setHistory] = useState([]);
   const [openId, setOpenId] = useState(null);
   const [modelOpen, setModalOpen] = useState(false);
@@ -59,6 +60,21 @@ function Dashboard() {
     }
   }
 
+  const statsRows = useMemo(() => {
+    return stats.map((s, index) => (
+      <tr key={index}>
+        <td>{s.item_type}</td>
+        <td>{s.item_name}</td>
+        <td>{s.quantity}</td>
+        <td>{new Date(s.recycled_at).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}</td>
+      </tr>
+    ));
+  }, [stats]);
+
   async function fetchSearchHistory() {
     const res = await fetch(`${apiUrl}/api/v1/chat`, {
       method: 'GET',
@@ -100,9 +116,12 @@ function Dashboard() {
     })]
   }
 
+  // Column Chart Data
+  const chartData = useMemo(() => formatStats(stats), [stats]);
+
   const submitRecycling = async () => {
     try {
-      const res = await fetch(`${apiUrl}/api/v1/recycle`, {
+      await fetch(`${apiUrl}/api/v1/recycle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -121,7 +140,6 @@ function Dashboard() {
   }
 
   const handleSaveChat = async (data, item) => {
-    // if (data.category === 'other') return;
     console.log(data.reply)
     await fetch(`${apiUrl}/api/v1/chat/save`, {
       method: 'POST',
@@ -133,7 +151,6 @@ function Dashboard() {
       }),
     });
 
-    // refresh history after saving
     fetchSearchHistory();
   };
 
@@ -151,6 +168,7 @@ function Dashboard() {
   return (
     <section className='dashboard'>
       <h1 className='dashboard__header'>Let's Get Recycling!</h1>
+
     {/* FORM */}
       <div className='dashboard__recycling'>
         <form className='dashboard__recycling--form'>
@@ -220,19 +238,7 @@ function Dashboard() {
             </tr>
           </thead>
           <tbody>
-            {stats.map((s, index) => (
-              <tr key={index}>
-                <td>{s.item_type}</td>
-                <td>{s.item_name}</td>
-                <td>{s.quantity}</td>
-                <td>{new Date(s.recycled_at).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-                </td>
-              </tr>
-            ))}
+            {statsRows}
           </tbody>
         </table>
       </div>
@@ -240,7 +246,7 @@ function Dashboard() {
 
     {/* CHART */}
       <div className='dashboard__stat-block'>
-        <MyChart className='chart' data={formatStats(stats)}/>
+        <MyChart className='chart' data={chartData}/>
       </div>
 
     {/* CHAT */}
@@ -255,10 +261,12 @@ function Dashboard() {
       </div>
 
       {/* HISTORY MODEL */}
-      <section className={`dashboard__history ${modelOpen ? 'open' : ''}`}>
+      <section 
+        className={`dashboard__history ${modelOpen ? 'open' : ''}`} 
+        onClick={() => setModalOpen(false)}
+      >
         <div className="dashboard__history--header">
           <h3>Search History</h3>
-          {/* <button onClick={() => setModalOpen(false)}>Close</button> */}
           <div className='close-icon-wrapper'>
             <X 
               id='close-model-btn'
@@ -278,17 +286,6 @@ function Dashboard() {
               setOpenId={setOpenId}
             />
           ))}
-          {/* {history.map((result) => (
-            <History 
-              key={result.id}
-              id={result.id} 
-              keyword={result.keyword} 
-              result={result.result}
-              deleteSearchHistory={deleteSearchHistory}
-              openId={openId}
-              setOpenId={setOpenId}
-            />
-          ))} */}
         </div>
       </section>
     </section>

@@ -33,8 +33,8 @@
 
   &__login-btn {
     grid-area: 1 / 5 / 2 / 6;
-    justify-self: end;   // horizontal alignment
-    align-self: center;  // vertical alignment
+    justify-self: end;
+    align-self: center;
 
     border-radius: 15px;
     background-color: c.$hunter-green;

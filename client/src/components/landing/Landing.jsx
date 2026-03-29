@@ -18,13 +18,13 @@ function Landing() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFade(false); // start fade out
+      setFade(false);
 
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % reviews.length);
-        setFade(true); // fade back in
-      }, 500); // match CSS duration
-    }, 5000); // change every 3s
+        setFade(true);
+      }, 500);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -89,8 +89,6 @@ function Landing() {
       <section className='landing__how' aria-labelledby='how-heading'>
         <h2 id='how-heading'>How it works</h2>
 
-        {/* <div> */}
-          {/* <img src={RecyclingBin}/> */}
           <ul className='landing__how--steps'>
             <li>
               <h3>1. Search your item</h3>
@@ -107,8 +105,6 @@ function Landing() {
               <p>Follow simple instructions and make a real environmental impact.</p>
             </li>
           </ul>
-          {/* <img src={BigEcoLoop}/> */}
-        {/* </div> */}
       </section>
 
       {/* Testimonials */}

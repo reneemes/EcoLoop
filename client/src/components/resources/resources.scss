@@ -7,11 +7,10 @@
   gap: 20px;
 
   &__left-panel {
-    // width: 35%;
     text-align: center;
     max-height: 80vh;
-    // overflow-y: scroll;
   }
+
   h2 {
     text-align: center;
     color: c.$hunter-green;
@@ -23,7 +22,6 @@
   &__form-box {
     display: flex;
     justify-content: center;
-    // max-width: 370px;
 
     input,
     button {

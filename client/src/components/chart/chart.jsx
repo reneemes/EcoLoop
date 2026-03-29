@@ -10,8 +10,6 @@ function MyChart({ data }) {
         legend: {position: 'none'},
         colors: ["#a8e6cf", "#dcedc1", "#ffd3b6","#ffaaa5", "#c7ceea"],
         chartArea: {
-          // left: 30,    // padding inside chart container
-          // top: 50,
           width: '90%',
           height: '50%',
         },

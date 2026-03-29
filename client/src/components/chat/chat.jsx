@@ -47,7 +47,7 @@ function Chat({ onSaveChat }) {
         ...prev,
         { role: 'assistant', content: data }
       ]);
-      // saveAIResponse(data)
+      
       onSaveChat(data, item);
       setItem('');
       setLoading(false);
@@ -55,8 +55,6 @@ function Chat({ onSaveChat }) {
       setLoading(false);
       console.error(err);
     }
-
-    setItem('');
   };
 
   return (
@@ -94,24 +92,6 @@ function Chat({ onSaveChat }) {
                 )}
               </>
             )}
-            {/* {msg.role === 'assistant' && (
-              <>
-              {!msg.content.reply && (
-                <p>An error occurred processing your request. Please try again later.</p>
-              )}
-                <p>{msg.content.reply}</p>
-
-                {msg.content.category !== 'other' || msg.content.reply === '' && (<div className='chat__meta'>
-                  <p className={`badge ${msg.content.category}`}>
-                    Category: {msg.content.category}
-                  </p>
-
-                  <p className={msg.content.recyclable ? 'true' : 'no'}>
-                    {msg.content.recyclable ? '♻️ Recyclable' : '🗑️ Trash'}
-                  </p>
-                </div>)}
-              </>
-            )} */}
           </div>
         ))}
 
@@ -122,14 +102,8 @@ function Chat({ onSaveChat }) {
         )}
         <div ref={messagesEndRef} />
       </div>
-
-      {/* {loading && <div className='chat__msg assistant'>Thinking...</div>} */}
-      {/* {loading && (
-        <div className='chat__msg assistant'>
-          <p className="typing">•••</p>
-        </div>
-      )} */}
-
+      
+      {/* CHAT BOX */}
       <form onSubmit={sendMessage} className='chat__form'>
         <input
           value={item}

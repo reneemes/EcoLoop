@@ -69,8 +69,8 @@
 }
 
 .chat__messages::-webkit-scrollbar {
-  width: 10px;              /* vertical scrollbar */
-  height: 10px;             /* horizontal scrollbar */
+  width: 10px;
+  height: 10px;
 }
 
 .chat__messages::-webkit-scrollbar-track {
@@ -79,7 +79,7 @@
 }
 
 .chat__messages::-webkit-scrollbar-thumb {
-  background: c.$sea-green;      /* your hunter green vibe */
+  background: c.$sea-green;
   border-radius: 10px;
 }
 
