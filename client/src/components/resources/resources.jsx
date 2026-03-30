@@ -213,7 +213,7 @@ function Resources() {
   const loadFacilities = async (search, rad) => {
     setLoading(true);
 
-    // 🔥 TEMP: use hardcoded data instead of API
+    // TEMP: use hardcoded data instead of API
     const formatted = demoFacilities;
 
     setFacilities(formatted);
@@ -320,36 +320,6 @@ function Resources() {
           ))}
         </ul>
       </section>
-      {/* <section className="resources__articles">
-        <h3>Helpful Resources</h3>
-        <div className="resources__articles--container">
-          <div className="resources__articles--box">
-            <img src={EPAImg}/>
-            <a href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">
-              How Do I Recycle Common Recyclables?
-            </a>
-            <p>EPA - United States Environmental Protection Agency</p>
-          </div>
-          <div className="resources__articles--box">
-            <img src={plasticsForChange}/>
-            <a href="https://www.plasticsforchange.org/blog/which-plastic-can-be-recycled">
-              Which Plastic Can Be Recycled?
-            </a>
-            <p>Plastics for Change</p>
-          </div>
-          <div className="resources__articles--box">
-            <img src={Contamination}/>
-            <a href="https://www.rubicon.com/blog/recycling-contamination/">
-              What is Recycling Contamination, and Why Does it Matter?
-            </a>
-            <p>Rubicon</p>
-          </div>
-          <div className="resources__articles--box">
-            <a href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">How Do I Recycle Common Recyclables</a>
-            <p>EPA - United States Environmental Protection Agency</p>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 }
