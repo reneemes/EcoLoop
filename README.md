@@ -1,5 +1,5 @@
 <p align='center'>
-  <img src='client/public/EcoLoop.png' width='50%'/>
+  <img src='client/public/BigEcoLoop.png' width='50%'/>
 </p>
 
 <!-- # ♻️ EcoLoop -->
@@ -9,10 +9,10 @@ A mobile-first full-stack web application designed to make recycling easier, sma
 ---
 
 <p align='center'>
-  <img src='client/public/landing.png' width='25%'/>
-  <img src='client/public/login.png' width='25%'/>
-  <img src='client/public/dashboard.png' width='25%'/>
-  <img src='client/public/chat.png' width='25%'/>
+  <img src='client/public/landing.png' width='20%'/>
+  <img src='client/public/login.png' width='20%'/>
+  <img src='client/public/dashboard.png' width='20%'/>
+  <img src='client/public/chat.png' width='20%'/>
 </p>
 
 ## Features
