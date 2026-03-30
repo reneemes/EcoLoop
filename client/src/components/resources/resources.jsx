@@ -79,7 +79,7 @@ const articles = [
     alt: "Plastic in landfills"
   },
   {
-    title: "Understanding recycling symbols",
+    title: "Understanding Recycling Symbols",
     link: "https://www.recyclenow.com/how-to-recycle/recycling-symbols",
     source: "Recycle Now",
     image: Symbols,
