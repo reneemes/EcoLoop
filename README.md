@@ -54,7 +54,7 @@ A mobile-first full-stack web application designed to make recycling easier, sma
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
