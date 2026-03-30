@@ -140,7 +140,6 @@ function Dashboard() {
   }
 
   const handleSaveChat = async (data, item) => {
-    console.log(data.reply)
     await fetch(`${apiUrl}/api/v1/chat/save`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
