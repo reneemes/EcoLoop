@@ -18,6 +18,8 @@ function Login() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
 
+  const [loginError, setLoginError] = useState('');
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/dashboard", { replace: true });
@@ -31,11 +33,9 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setServerError('');
+    setLoginError('');
 
     try {
-      // setSubmitting(true);
-
       if (mode === 'login') {
         await login(username.trim(), password);
         navigate('/dashboard');
@@ -50,10 +50,8 @@ function Login() {
 
       navigate('/dashboard');
     } catch (error) {
-      // setServerError(err.message || 'Something went wrong.');
-      console.log(error)
-    // } finally {
-    //   setSubmitting(false);
+      setLoginError(error.message || 'Something went wrong.');
+      console.error(error);
     }
   };
 
@@ -121,6 +119,8 @@ function Login() {
           <p className='auth__login-form--box-six'>
             Don't have an account? <span onClick={() => switchMode('signup')} aria-selected={mode === 'signup'}>Sign Up</span>
           </p>
+
+          <p className='auth__login-form--error'>{loginError}</p>
         </form>
       : 
         <form className='auth__signup-form'>
@@ -175,6 +175,8 @@ function Login() {
           <p className='auth__signup-form--box-six'>
             Already have an account? <span onClick={() => switchMode('login')} aria-selected={mode === 'login'}>Log In</span>
           </p>
+
+          <p className='auth__signup-form--error'>{loginError}</p>
         </form>
       }
     </section>

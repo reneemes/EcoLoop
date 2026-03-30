@@ -48,7 +48,7 @@
     background-color: c.$sea-green;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 75px) 25px 75px 50px;
+    grid-template-rows: repeat(3, 75px) 25px 75px 50px 50px;
     grid-column-gap: 0px;
     padding-bottom: 50px;
     max-width: 496px;
@@ -154,6 +154,12 @@
         cursor: pointer;
       }
     }
+    &--error {
+      grid-area: 7 / 1 / 8 / 3;
+      align-self: center;
+      justify-self: center;
+      color: firebrick;
+    }
   }
 
   &__eye-btn {
@@ -166,7 +172,7 @@
 
   &__signup-form {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 75px) 50px;
+    grid-template-rows: repeat(6, 75px) 50px 50px;
 
     h1 {
       color: c.$bright-snow;
@@ -194,6 +200,9 @@
     }
     &--box-six {
       grid-area: 7 / 1 / 8 / 3;
+    }
+    &--error {
+      grid-area: 8 / 1 / 9 / 3;
     }
   }
 }

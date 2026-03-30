@@ -9,12 +9,12 @@ import { X } from 'lucide-react';
 function Dashboard() {
   const { isAuthenticated } = useAuth();
   const [stats, setStats] = useState([]);
-  const [saveError, setSaveError] = useState();
+  const [saveError, setSaveError] = useState('');
 
   // Search History State
   const [history, setHistory] = useState([]);
   const [openId, setOpenId] = useState(null);
-  const [modelOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Form State
   const [itemType, setItemType] = useState('Plastic');
@@ -221,6 +221,8 @@ function Dashboard() {
             className='dashboard__recycling--submit-btn'
             onClick={submitRecycling}
           >Save</button>
+
+          <p className='dashboard__recycling--error'>{saveError}</p>
         </form>
       </div>
 
@@ -262,21 +264,25 @@ function Dashboard() {
 
       {/* HISTORY MODEL */}
       <section 
-        className={`dashboard__history ${modelOpen ? 'open' : ''}`} 
+        className={`dashboard__history ${modalOpen ? 'open' : ''}`} 
         onClick={() => setModalOpen(false)}
       >
-        <div className="dashboard__history--header">
-          <h3>Search History</h3>
-          <div className='close-icon-wrapper'>
-            <X 
-              id='close-model-btn'
-              onClick={() => setModalOpen(false)}
-            />
+        <div
+          className="dashboard__history--content"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="dashboard__history--header">
+            <h3>Search History</h3>
+            <div className='close-icon-wrapper'>
+              <X 
+                id='close-model-btn'
+                onClick={() => setModalOpen(false)}
+                />
+            </div>
           </div>
-        </div>
-        <div className='dashboard__history--grid'>
-          {Array.isArray(history) && history.map((result) => (
-            <History 
+          <div className='dashboard__history--grid'>
+            {Array.isArray(history) && history.map((result) => (
+              <History 
               key={result.id}
               id={result.id} 
               keyword={result.keyword} 
@@ -284,8 +290,9 @@ function Dashboard() {
               deleteSearchHistory={deleteSearchHistory}
               openId={openId}
               setOpenId={setOpenId}
-            />
-          ))}
+              />
+            ))}
+          </div>
         </div>
       </section>
     </section>

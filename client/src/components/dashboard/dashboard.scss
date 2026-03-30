@@ -17,7 +17,9 @@
     background-color: c.$soft-linen;
     box-shadow: -2px 2px 3px c.$hunter-green;
     justify-self: center;
+    height: 100%;
     width: 90%;
+    // padding: 10px;
 
     &--header {
       font-weight: 500;
@@ -65,6 +67,10 @@
         color: c.$hunter-green;
         outline-offset: 3px;
       }
+    }
+
+    &--error {
+      color: firebrick;
     }
   }
 
@@ -120,24 +126,17 @@
   }
 
   &__stat-block {
-    // grid-area: 1 / 2 / 3 / 3;
-    background-color: white;       /* white background */
-    border: 2px solid c.$hunter-green;        /* border color and thickness */
+    background-color: white;
+    border: 2px solid c.$hunter-green;
     box-shadow: -2px 2px 3px c.$hunter-green;
-    border-radius: 8px;            /* optional rounded corners */
-    padding: 20px;                 /* optional spacing around chart */
-    width: 90%;                     /* your desired width */
-    // width: 100%;                     /* your desired width */
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
     margin: 30px auto;   
     height: 300px;
-    // margin-right: 150px;
-    // height: 250px;
-    // justify-self: flex-start;
   }
 
   &__chat {
-    // border: 1px solid c.$hunter-green;
-    // height: 80vh;
     width: 90%;
     justify-self: center;
     padding-bottom: 40px;
@@ -180,7 +179,6 @@
 
   &__history {
     display: none;
-    // background-color: c.$tea-green;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -189,17 +187,16 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); // overlay
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     
     &--header {
       border-radius: 10px 10px 0 0;
       display: flex;
       justify-content: space-between;
-      width: 500px;
+      width: 90%;
       background-color: c.$tea-green;
       color: c.$hunter-green;
-      // text-align: center;
       font-size: 1.2rem;
       padding: 15px;
 
@@ -218,8 +215,7 @@
       display: flex;
       flex-direction: column;
       background-color: c.$tea-green;
-
-      width: 500px;
+      width: 90%;
       max-height: 80vh;
       overflow-y: auto;
       border-radius: 0 0 10px 10px;
@@ -241,10 +237,14 @@
   .dashboard__chat--btn {
     width: 20%;
   }
+
+  .dashboard__history--header,
+  .dashboard__history--grid {
+    width: 500px;
+  }
 }
 
 @media screen and (min-width: 1422px) {
-// @media screen and (min-width: 1024px) {
   .dashboard {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -262,7 +262,7 @@
       border: 2px solid c.$hunter-green;
       background-color: c.$soft-linen;
       box-shadow: -2px 2px 3px c.$hunter-green;
-      height: 95%;
+      // height: 95%;
       width: 50%;
       justify-self: center;
 
@@ -287,25 +287,20 @@
 
     &__stat-block {
       grid-area: 1 / 2 / 3 / 3;
-      background-color: white;       /* white background */
-      border: 2px solid c.$hunter-green;        /* border color and thickness */
+      background-color: white;
+      border: 2px solid c.$hunter-green;
       box-shadow: -2px 2px 3px c.$hunter-green;
-      border-radius: 8px;            /* optional rounded corners */
-      padding: 20px;                 /* optional spacing around chart */
-      width: 80%;                     /* your desired width */
-      // width: 100%;                     /* your desired width */
+      border-radius: 8px;
+      padding: 20px;
+      width: 80%;
       margin: 30px auto;   
       height: 300px;
       margin-right: 150px;
-      // height: 250px;
-      // justify-self: flex-start;
     }
 
     &__r-history {
       grid-area: 3 / 1 / 4 / 2;
       justify-self: center;
-      // box-shadow: -2px 2px 3px c.$hunter-green;
-      // overflow: auto;
       
       h3 {
         color: c.$hunter-green;
@@ -322,10 +317,8 @@
 
       table {
         width: 100%;
-        // max-height: 400px;
         table-layout: fixed;
         border-collapse: collapse;
-        // overflow: auto;
         
         thead th {
           position: sticky;
@@ -346,9 +339,9 @@
           background: c.$tea-green;
           text-align: center;
           padding: 8px;
-          white-space: nowrap;     /* prevents wrapping */
+          white-space: nowrap;
           overflow: hidden;
-          text-overflow: ellipsis; /* adds ... if too long */
+          text-overflow: ellipsis;
         }
       }
     }
@@ -386,13 +379,12 @@
   }
 
   .chart {
-    // width: 40vw;
     border: 2px solid c.$hunter-green;
   }
 
   .table-container::-webkit-scrollbar {
-    width: 5px;              /* vertical scrollbar */
-    height: 10px;             /* horizontal scrollbar */
+    width: 5px;
+    height: 10px;
   }
 
   .table-container::-webkit-scrollbar-track {
@@ -401,7 +393,7 @@
   }
 
   .table-container::-webkit-scrollbar-thumb {
-    background: c.$sea-green;      /* your hunter green vibe */
+    background: c.$sea-green;
     border-radius: 10px;
   }
 
