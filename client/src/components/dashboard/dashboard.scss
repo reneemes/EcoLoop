@@ -19,7 +19,6 @@
     justify-self: center;
     height: 100%;
     width: 90%;
-    // padding: 10px;
 
     &--header {
       font-weight: 500;
@@ -249,7 +248,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 75px repeat(2, 300px);
-    height: 90vh;
+    height: 100vh;
 
     &__header {
       grid-area: 1 / 1 / 2 / 2;
@@ -262,7 +261,6 @@
       border: 2px solid c.$hunter-green;
       background-color: c.$soft-linen;
       box-shadow: -2px 2px 3px c.$hunter-green;
-      // height: 95%;
       width: 50%;
       justify-self: center;
 
@@ -301,6 +299,7 @@
     &__r-history {
       grid-area: 3 / 1 / 4 / 2;
       justify-self: center;
+      text-align: start;
       
       h3 {
         color: c.$hunter-green;
@@ -351,7 +350,7 @@
       padding-right: 50px;
 
       &--top {
-        display: flex;
+        flex-direction: row;
         justify-content: space-between;
         align-items: center;
       }

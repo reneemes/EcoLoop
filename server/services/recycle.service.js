@@ -6,7 +6,8 @@ async function index(userId) {
   const [result] = await db.promise().query(
     `SELECT item_type, item_name, quantity, recycled_at
     FROM recycle_history
-    WHERE user_id = ?;`,
+    WHERE user_id = ?
+    ORDER BY recycled_at DESC;`,
     [userId]
   );
   

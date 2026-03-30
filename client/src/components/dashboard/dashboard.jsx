@@ -159,7 +159,8 @@ function Dashboard() {
       await fetch(`${apiUrl}/api/v1/chat/${id}`, {
         method: 'DELETE',
         credentials: 'include',
-      })
+      });
+      setHistory((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error(error);
     }
@@ -283,13 +284,13 @@ function Dashboard() {
           <div className='dashboard__history--grid'>
             {Array.isArray(history) && history.map((result) => (
               <History 
-              key={result.id}
-              id={result.id} 
-              keyword={result.keyword} 
-              result={result.result}
-              deleteSearchHistory={deleteSearchHistory}
-              openId={openId}
-              setOpenId={setOpenId}
+                key={result.id}
+                id={result.id} 
+                keyword={result.keyword} 
+                result={result.result}
+                deleteSearchHistory={deleteSearchHistory}
+                openId={openId}
+                setOpenId={setOpenId}
               />
             ))}
           </div>
